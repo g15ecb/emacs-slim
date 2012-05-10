@@ -15,8 +15,10 @@
 (setq default-major-mode 'text-mode)
 (global-font-lock-mode t)
 
-
-
+;; I use a mac keyboard on desktop and machine (m'b pro)
+(fset 'insertPound
+   "#")
+(global-set-key (kbd "M-3") 'insertPound)
 
 (ido-mode t)
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
