@@ -3,7 +3,7 @@
 (scroll-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
-(set-face-attribute 'default nil :height 160)
+(set-face-attribute 'default nil :height 220)
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
 (column-number-mode t)                   
@@ -42,7 +42,9 @@ If the new path's directories does not exist, create them."
 (require 'uniquify)
 
 (add-to-list 'default-frame-alist '(width . 85))
-(add-to-list 'default-frame-alist '(height . 40))
-(add-to-list 'default-frame-alist '(left . 400))
+(add-to-list 'default-frame-alist '(height . 200))
+(add-to-list 'default-frame-alist '(left . 270))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(setq mac-command-modifier 'meta)
