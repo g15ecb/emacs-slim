@@ -1,3 +1,5 @@
+;; Setup the mode hooks and any other odd bits
+
 ;; Clojure
 (defun clojure-hooks()
   (paredit-mode)
