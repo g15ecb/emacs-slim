@@ -15,6 +15,7 @@
               (clojure-mode-font-lock-setup))))
 
 (add-hook 'slime-repl-mode-hook 'clojure-hooks)
+(add-hook 'inferior-lisp-mode-hook 'clojure-hooks)
 
 ;; Haskell
 (require 'autopair)			; this isn't setup in elpa package yet ;-(
