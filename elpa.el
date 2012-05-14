@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/.emacs.d/vendor/package")
+;; (add-to-list 'load-path "~/.emacs.d/vendor/package")
 
 (require 'package)
 (add-to-list 'package-archives
@@ -18,8 +18,7 @@
 		      slime 
 		      clojure-test-mode
 		      highlight-parentheses
-		      rainbow-delimiters popup
-		      auto-complete)
+		      rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
