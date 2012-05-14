@@ -48,3 +48,5 @@ If the new path's directories does not exist, create them."
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 (setq mac-command-modifier 'meta)
+
+(setq-default ispell-program-name "/usr/local/bin/aspell")

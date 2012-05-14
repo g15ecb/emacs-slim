@@ -14,7 +14,7 @@
             (let (font-lock-mode)
               (clojure-mode-font-lock-setup))))
 
-(add-hook 'slime-repl-mode-hook 'paredit-mode)
+(add-hook 'slime-repl-mode-hook 'clojure-hooks)
 
 ;; Haskell
 (require 'autopair)			; this isn't setup in elpa package yet ;-(
