@@ -8,13 +8,9 @@
 
 ;; packages to install if not present
 (defvar my-packages '(autopair 
-		      paredit 
 		      magit 
-		      clojure-mode
 		      haskell-mode 
 		      browse-kill-ring
-		      slime 
-		      clojure-test-mode
 		      highlight-parentheses
 		      rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
