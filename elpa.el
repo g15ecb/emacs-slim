@@ -12,7 +12,8 @@
 		      haskell-mode 
 		      browse-kill-ring
 		      highlight-parentheses
-		      rainbow-delimiters)
+		      rainbow-delimiters
+		      scala-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
