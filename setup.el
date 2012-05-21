@@ -4,7 +4,7 @@
 (require 'autopair)			; this isn't setup in elpa package yet ;-(
 
 (defun haskell-hooks ()
-  (autopair-mode)
+  ;; (autopair-mode)
   (turn-on-haskell-doc-mode)
   (turn-on-haskell-indent)
   (highlight-parentheses-mode)
@@ -15,3 +15,11 @@
 
 ;; Browse kill ring
 (browse-kill-ring-default-keybindings) 	; use M-y to browse kill ring
+
+;; Scala
+(defun scala-hooks ()
+  (autopair-mode)
+  (highlight-parentheses-mode)
+  (rainbow-delimiters-mode))
+
+(add-hook 'scala-mode-hook 'scala-hooks)

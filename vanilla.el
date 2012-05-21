@@ -3,7 +3,8 @@
 (scroll-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
-(set-face-attribute 'default nil :height 220)
+;;(set-face-attribute 'default nil :height 220)
+(set-face-attribute 'default nil :height 220 :font "Menlo")
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
 (column-number-mode t)                   
@@ -43,9 +44,20 @@ If the new path's directories does not exist, create them."
 
 (add-to-list 'default-frame-alist '(width . 85))
 (add-to-list 'default-frame-alist '(left . 270))
+(add-to-list 'default-frame-alist '(height . 38))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 (setq mac-command-modifier 'meta)
 
 (setq-default ispell-program-name "/usr/local/bin/aspell")
+
+;; Install auctex! Normally I just do the make, sudo make install for this.  For
+;; OSX you need the following ./configure setup :
+;; 
+;; ./configure
+;; --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
+;; --with-lispdir=/Applications/Emacs.app/Contents/Resources/site-lisp
+;; --with-texmf-dir=/usr/local/texlive/texmf-local
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
