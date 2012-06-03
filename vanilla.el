@@ -44,7 +44,7 @@ If the new path's directories does not exist, create them."
 
 (add-to-list 'default-frame-alist '(width . 85))
 (add-to-list 'default-frame-alist '(left . 270))
-(add-to-list 'default-frame-alist '(height . 38))
+(add-to-list 'default-frame-alist '(height . 35))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
@@ -59,5 +59,5 @@ If the new path's directories does not exist, create them."
 ;; --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
 ;; --with-lispdir=/Applications/Emacs.app/Contents/Resources/site-lisp
 ;; --with-texmf-dir=/usr/local/texlive/texmf-local
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+;; (load "auctex.el" nil t t)
+;; (load "preview-latex.el" nil t t)

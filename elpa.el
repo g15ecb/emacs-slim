@@ -11,9 +11,7 @@
 		      magit 
 		      haskell-mode 
 		      browse-kill-ring
-		      highlight-parentheses
-		      rainbow-delimiters
-		      scala-mode)
+		      highlight-parentheses)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
