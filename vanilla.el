@@ -52,12 +52,4 @@ If the new path's directories does not exist, create them."
 
 (setq-default ispell-program-name "/usr/local/bin/aspell")
 
-;; Install auctex! Normally I just do the make, sudo make install for this.  For
-;; OSX you need the following ./configure setup :
-;; 
-;; ./configure
-;; --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs
-;; --with-lispdir=/Applications/Emacs.app/Contents/Resources/site-lisp
-;; --with-texmf-dir=/usr/local/texlive/texmf-local
-;; (load "auctex.el" nil t t)
-;; (load "preview-latex.el" nil t t)
+(server-start)
