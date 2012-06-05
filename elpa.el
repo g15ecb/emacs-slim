@@ -11,6 +11,8 @@
 		      magit 
 		      haskell-mode 
 		      browse-kill-ring
+		      perspective
+		      idle-highlight
 		      highlight-parentheses)
   "A list of packages to ensure are installed at launch.")
 
