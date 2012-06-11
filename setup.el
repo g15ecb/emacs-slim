@@ -2,6 +2,10 @@
 
 ;; perspectives
 (persp-mode)
+;; some default perspectives...
+(persp-switch "hs")
+(persp-switch "main")
+(persp-rename "wk")
 
 ;; Haskell
 (require 'autopair)			; this isn't setup in elpa package yet ;-(
