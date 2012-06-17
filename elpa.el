@@ -8,6 +8,10 @@
 
 ;; packages to install if not present
 (defvar my-packages '(autopair 
+		      paredit
+		      slime
+		      clojure-mode
+		      clojure-test-mode
 		      magit 
 		      haskell-mode 
 		      browse-kill-ring

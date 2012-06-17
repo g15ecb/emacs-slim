@@ -42,9 +42,11 @@ If the new path's directories does not exist, create them."
 
 (require 'uniquify)
 
-(add-to-list 'default-frame-alist '(width . 100))
-(add-to-list 'default-frame-alist '(left . 180))
-(add-to-list 'default-frame-alist '(height . 35))
+;;(add-to-list 'default-frame-alist '(width . 100))
+(add-to-list 'default-frame-alist '(width . 85))
+(add-to-list 'default-frame-alist '(left . 270))
+(add-to-list 'default-frame-alist '(height . 38))
+;;(add-to-list 'default-frame-alist '(height . 38))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
