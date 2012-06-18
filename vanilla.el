@@ -3,8 +3,7 @@
 (scroll-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
-;;(set-face-attribute 'default nil :height 220)
-(set-face-attribute 'default nil :height 220 :font "Menlo")
+(set-face-attribute 'default nil :height 180)
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
 (column-number-mode t)                   
@@ -15,11 +14,6 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (setq default-major-mode 'text-mode)
 (global-font-lock-mode t)
-
-;; I use a mac keyboard on desktop and machine (m'b pro)
-(fset 'insertPound
-   "#")
-(global-set-key (kbd "M-3") 'insertPound)
 
 (ido-mode t)
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
@@ -42,16 +36,6 @@ If the new path's directories does not exist, create them."
 
 (require 'uniquify)
 
-;;(add-to-list 'default-frame-alist '(width . 100))
-(add-to-list 'default-frame-alist '(width . 85))
-(add-to-list 'default-frame-alist '(left . 270))
-(add-to-list 'default-frame-alist '(height . 38))
-;;(add-to-list 'default-frame-alist '(height . 38))
-
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-(setq mac-command-modifier 'meta)
-
-(setq-default ispell-program-name "/usr/local/bin/aspell")
 
 (server-start)
