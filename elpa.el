@@ -17,7 +17,6 @@
 		      browse-kill-ring
 		      perspective
 		      auto-complete
-		      idle-highlight
 		      ac-slime
 		      highlight-parentheses)
   "A list of packages to ensure are installed at launch.")
