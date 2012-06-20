@@ -41,7 +41,8 @@
   (autopair-mode)
   (turn-on-haskell-doc-mode)
   (turn-on-haskell-indent)
-  (highlight-parentheses-mode))
+  (highlight-parentheses-mode)
+  (paredit-mode))
 
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 
