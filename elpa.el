@@ -18,6 +18,8 @@
 		      perspective
 		      auto-complete
 		      ac-slime
+		      quack
+		      rainbow-delimiters
 		      highlight-parentheses)
   "A list of packages to ensure are installed at launch.")
 
