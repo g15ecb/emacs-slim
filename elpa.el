@@ -7,8 +7,7 @@
   (package-refresh-contents))
 
 ;; packages to install if not present
-(defvar my-packages '(autopair 
-		      paredit
+(defvar my-packages '(paredit
 		      slime
 		      clojure-mode
 		      clojure-test-mode
@@ -18,9 +17,7 @@
 		      perspective
 		      auto-complete
 		      ac-slime
-		      quack
-		      rainbow-delimiters
-		      highlight-parentheses)
+		      rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
