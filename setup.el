@@ -41,7 +41,8 @@
   (turn-on-haskell-doc-mode)
   (turn-on-haskell-indent)
   (show-paren-mode)
-  (paredit-mode))
+  (paredit-mode)
+  (auto-complete-mode -1))
 
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 
