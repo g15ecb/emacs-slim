@@ -7,17 +7,13 @@
   (package-refresh-contents))
 
 ;; packages to install if not present
-(defvar my-packages '(paredit
-		      slime
-		      clojure-mode
-		      clojure-test-mode
-		      magit 
+(defvar my-packages '(magit 
 		      haskell-mode 
+		      scala-mode
 		      browse-kill-ring
 		      perspective
-		      auto-complete
-		      ac-slime
 		      rainbow-delimiters
+		      enclose
 		      smart-mode-line)
   "A list of packages to ensure are installed at launch.")
 
