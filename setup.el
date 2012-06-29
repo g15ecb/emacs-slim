@@ -3,10 +3,10 @@
 ;; perspectives
 (persp-mode)
 ;; some default perspectives...
-(persp-switch "hs")
-(persp-switch "clj")
+(persp-switch "haskell")
+;; (persp-switch "clj")
 (persp-switch "main")
-(persp-rename "wrk")
+;;(persp-rename "wrk")
 
 ;; AC
 (require 'auto-complete-config)
@@ -48,3 +48,16 @@
 
 ;; Browse kill ring
 (browse-kill-ring-default-keybindings) 	; use M-y to browse kill ring
+
+;; smart mode line
+;; Example configs...
+;; (add-to-list 'sml/replacer-regexp-list '("^~/Dropbox/Projects/In-Development/" ":ProjDev:"))
+;; (add-to-list 'sml/replacer-regexp-list '("^~/Documents/Work/" ":Work:))
+;; ;; Added in the right order, they even work sequentially:
+;; (add-to-list 'sml/replacer-regexp-list '("^~/Dropbox/" ":DB:"))
+;; (add-to-list 'sml/replacer-regexp-list '("^:DB:Documents" ":DDocs:"))
+(require 'smart-mode-line)
+(sml/setup)
+
+(add-to-list 'sml/replacer-regexp-list '("^~/phd/" ":PhD"))
+(add-to-list 'sml/replacer-regexp-list '("^~/phd/" ":Haskell"))
