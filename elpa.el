@@ -17,7 +17,8 @@
 		      perspective
 		      auto-complete
 		      ac-slime
-		      rainbow-delimiters)
+		      rainbow-delimiters
+		      smart-mode-line)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
