@@ -4,3 +4,6 @@
 (global-set-key (kbd "M-9") 'query-replace)
 (global-set-key (kbd "M-0") 'hoogle)
 
+;; fastnav
+(global-set-key (kbd "C-c C-f") 'fastnav-jump-to-char-forward)
+(global-set-key (kbd "C-c C-r") 'fastnav-jump-to-char-backward)

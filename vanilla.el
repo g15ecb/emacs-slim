@@ -3,11 +3,14 @@
 (scroll-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
-(set-face-attribute 'default nil :height 180)
+(set-face-attribute 'default nil :height 220 :font "Menlo")
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
 (column-number-mode t)                   
 (size-indication-mode t)                 
+
+(fset 'insertPound "#")
+(global-set-key (kbd "M-3") 'insertPound)
 
 ;; some basic buffer stuff
 (setq-default fill-column 80)
@@ -39,3 +42,6 @@ If the new path's directories does not exist, create them."
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 (server-start)
+
+(setq-default ispell-program-name "/usr/local/bin/aspell")
+(setq mac-command-modifier 'meta)
