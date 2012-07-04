@@ -45,3 +45,7 @@ If the new path's directories does not exist, create them."
 
 (setq-default ispell-program-name "/usr/local/bin/aspell")
 (setq mac-command-modifier 'meta)
+
+(add-to-list 'default-frame-alist '(width . 127))
+(add-to-list 'default-frame-alist '(left . 0))
+(add-to-list 'default-frame-alist '(height . 38))

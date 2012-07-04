@@ -19,3 +19,14 @@
 (setq reftex-cite-format 'natbib)
 
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
+
+;; ghc-mod
+;; (add-to-list 'load-path "~/.emacs.d/non-elpa/ghc-mod")
+;; (autoload 'ghc-init "ghc" nil t)
+;; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+
+;; Haskell
+
+(add-to-list 'load-path "~/.emacs.d/non-elpa/ac-haskell")
+(require 'auto-complete-haskell)
+
