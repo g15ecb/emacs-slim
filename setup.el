@@ -5,14 +5,14 @@
 ;; some default perspectives...
 (persp-switch "haskell")
 ;; (persp-switch "scala")
-;; (persp-switch "clj")
+(persp-switch "clojure")
 (persp-switch "main")
 (persp-rename "work")
 
 ;; AC
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;; (ac-config-default)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
 
 ;; Clojure
 (defun clojure-hooks()
@@ -32,16 +32,17 @@
 (add-hook 'inferior-lisp-mode-hook 'clojure-hooks)
 
 ; ac-slime
-;; (add-hook 'slime-mode-hook 'set-up-slime-ac)
-;; (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-;; (eval-after-load "auto-complete"
-;;   '(add-to-list 'ac-modes 'slime-repl-mode))
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'slime-repl-mode))
 
 ;; Haskell
 (defun haskell-hooks ()
   (turn-on-haskell-doc-mode)
   (turn-on-haskell-indent)
   (rainbow-delimiters-mode)
+  (paredit-mode)
   (show-paren-mode))
 
 (add-hook 'haskell-mode-hook 'haskell-hooks)
@@ -60,3 +61,5 @@
 (browse-kill-ring-default-keybindings) 	; use M-y to browse kill ring
 
 (require 'fastnav)
+
+(ido-ubiquitous-mode)

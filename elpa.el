@@ -1,8 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -10,14 +8,16 @@
 
 ;; packages to install if not present
 (defvar my-packages '(magit 
-		      ;; paredit
-		      ;; slime
-		      ;; clojure-mode
-		      ;; clojure-test-mode
+		      paredit
+		      slime
+		      clojure-mode
+		      clojure-test-mode
 		      haskell-mode 
-		      ;; auto-complete
-		      ;; ac-slime
+		      auto-complete
+		      ac-slime
+		      enclose
 		      scala-mode
+		      ido-ubiquitous
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters

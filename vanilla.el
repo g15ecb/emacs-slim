@@ -3,7 +3,9 @@
 (scroll-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
-(set-face-attribute 'default nil :height 220 :font "Menlo")
+(set-face-attribute 'default nil :height 240 :font "Menlo")
+nil
+
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
 (column-number-mode t)                   
@@ -46,6 +48,6 @@ If the new path's directories does not exist, create them."
 (setq-default ispell-program-name "/usr/local/bin/aspell")
 (setq mac-command-modifier 'meta)
 
-(add-to-list 'default-frame-alist '(width . 127))
+(add-to-list 'default-frame-alist '(width . 117))
 (add-to-list 'default-frame-alist '(left . 0))
-(add-to-list 'default-frame-alist '(height . 38))
+(add-to-list 'default-frame-alist '(height . 35))

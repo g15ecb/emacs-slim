@@ -27,6 +27,10 @@
 
 ;; Haskell
 
-;; (add-to-list 'load-path "~/.emacs.d/non-elpa/ac-haskell")
-;; (require 'auto-complete-haskell)
+(add-to-list 'load-path "~/.emacs.d/non-elpa/ac-haskell")
+(require 'auto-complete-haskell)
 
+;; Erlang
+(add-to-list 'load-path "~/.emacs.d/non-elpa/distel/elisp")
+(require 'distel)
+(distel-setup)
