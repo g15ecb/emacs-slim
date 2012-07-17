@@ -9,13 +9,13 @@
 ;; packages to install if not present
 (defvar my-packages '(magit 
 		      paredit
-		      slime
-		      clojure-mode
-		      clojure-test-mode
+		      ;; slime
+		      ;; clojure-mode
+		      ;; clojure-test-mode
 		      haskell-mode 
 		      auto-complete
 		      ac-slime
-		      enclose
+		      ;; enclose
 		      scala-mode
 		      ido-ubiquitous
 		      browse-kill-ring

@@ -4,8 +4,8 @@
 (persp-mode)
 ;; some default perspectives...
 (persp-switch "haskell")
-;; (persp-switch "scala")
-(persp-switch "clojure")
+(persp-switch "scala")
+;;(persp-switch "clojure")
 (persp-switch "main")
 (persp-rename "work")
 
@@ -48,6 +48,7 @@
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 
 (defun scala-hooks() 
+  (paredit-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
