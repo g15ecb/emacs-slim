@@ -3,6 +3,8 @@
 (global-set-key (kbd "M-8") 'compile)
 (global-set-key (kbd "M-9") 'query-replace)
 (global-set-key (kbd "M-0") 'hoogle)
+(global-set-key (kbd "M-+") 'enlarge-window)
+
 
 ;; fastnav
 (global-set-key (kbd "C-c C-f") 'fastnav-jump-to-char-forward)
