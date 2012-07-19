@@ -31,9 +31,9 @@
 (require 'auto-complete-haskell)
 
 ;; Erlang
-(add-to-list 'load-path "~/.emacs.d/non-elpa/distel/elisp")
-(require 'distel)
-(distel-setup)
+;; (add-to-list 'load-path "~/.emacs.d/non-elpa/distel/elisp")
+;; (require 'distel)
+;; (distel-setup)
 
 ;; Scala
 ;; load the ensime lisp code...
