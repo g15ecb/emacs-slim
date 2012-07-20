@@ -8,16 +8,16 @@
 
 ;; packages to install if not present
 (defvar my-packages '(magit 
-		      paredit
+		      ;;paredit
 		      ;; slime
 		      ;; clojure-mode
 		      ;; clojure-test-mode
 		      haskell-mode 
 		      auto-complete
-		      ac-slime
-		      ;; enclose
+		      ;;ac-slime
+		      enclose
 		      scala-mode
-		      ido-ubiquitous
+		      ;;ido-ubiquitous
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters

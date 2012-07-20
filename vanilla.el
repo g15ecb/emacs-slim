@@ -4,7 +4,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
 (set-face-attribute 'default nil :height 240 :font "Menlo")
-nil
 
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
