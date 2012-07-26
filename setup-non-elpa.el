@@ -21,26 +21,31 @@
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
 
 ;; ghc-mod
-;; (add-to-list 'load-path "~/.emacs.d/non-elpa/ghc-mod")
-;; (autoload 'ghc-init "ghc" nil t)
-;; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(add-to-list 'load-path "~/.emacs.d/non-elpa/ghc-mod")
+(autoload 'ghc-init "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
 
 ;; Haskell
 
-;; (add-to-list 'load-path "~/.emacs.d/non-elpa/ac-haskell")
-;; (require 'auto-complete-haskell)
+(add-to-list 'load-path "~/.emacs.d/non-elpa/ac-haskell")
+(require 'auto-complete-haskell)
 
 ;; Erlang
-;; (add-to-list 'load-path "~/.emacs.d/non-elpa/distel/elisp")
-;; (require 'distel)
-;; (distel-setup)
+(add-to-list 'load-path "~/.emacs.d/non-elpa/distel/elisp")
+(require 'distel)
+(distel-setup)
 
 ;; Scala
 ;; load the ensime lisp code...
-;; (add-to-list 'load-path "~/.emacs.d/non-elpa/ensime/elisp/")
-;; (require 'ensime)
+(add-to-list 'load-path "~/.emacs.d/non-elpa/ensime/elisp/")
+(require 'ensime)
 
 ;; This step causes the ensime-mode to be started whenever
 ;; scala-mode is started for a buffer. You may have to customize this step
 ;; if you're not using the standard scala mode.
 ;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+;; Go
+;; (add-to-list 'load-path "~/.emacs.d/non-elpa/gocode/emacs")
+
+;; (require 'go-autocomplete)

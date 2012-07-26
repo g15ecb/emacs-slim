@@ -15,13 +15,12 @@
 		      haskell-mode 
 		      auto-complete
 		      ac-slime
-		      ;;enclose
                       autopair
 		      scala-mode
-		      ;;ido-ubiquitous
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
+		      erlang
 		      fastnav)
   "A list of packages to ensure are installed at launch.")
 

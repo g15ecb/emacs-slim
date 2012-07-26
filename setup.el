@@ -60,5 +60,6 @@
 (browse-kill-ring-default-keybindings) 	; use M-y to browse kill ring
 
 (require 'fastnav)
+(require 'autopair)
 
 ;;(ido-ubiquitous-mode)
