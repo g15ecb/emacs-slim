@@ -14,11 +14,17 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
+;; (setq hl-paren-colors
+;;       '("red4" "OrangeRed4" "tomato4" "coral4"
+;;         "DarkOrange4" "orange4" "LightSalmon4" "salmon4" "brown4"))
+
 ;; Clojure
 (defun clojure-hooks()
   (paredit-mode)
   (show-paren-mode)
-  (rainbow-delimiters-mode))
+  (rainbow-delimiters-mode)
+  ;(highlight-parentheses-mode)
+)
 
 (add-hook 'clojure-mode-hook 'clojure-hooks)
 
@@ -42,6 +48,7 @@
   (turn-on-haskell-doc-mode)
   (turn-on-haskell-indent)
   (rainbow-delimiters-mode)
+  (auto-complete-mode -1)
   (autopair-mode))
 
 (add-hook 'haskell-mode-hook 'haskell-hooks)
@@ -62,4 +69,7 @@
 (require 'fastnav)
 (require 'autopair)
 
-;;(ido-ubiquitous-mode)
+;; some flymake stuff
+(custom-set-faces
+ '(flymake-errline ((((class color)) (:underline "red"))))
+ '(flymake-warnline ((((class color)) (:underline "yellow")))))
