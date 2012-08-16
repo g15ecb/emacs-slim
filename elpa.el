@@ -8,19 +8,19 @@
 
 ;; packages to install if not present
 (defvar my-packages '(magit 
-		      paredit
-		      slime
-		      clojure-mode
-		      clojure-test-mode
-		      haskell-mode 
-		      auto-complete
-		      ac-slime
+		      ;; paredit
+		      ;; slime
+		      ;; clojure-mode
+		      ;; clojure-test-mode
+		      ;; haskell-mode 
+		      ;; auto-complete
+		      ;; ac-slime
                       autopair
 		      scala-mode
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
-		      erlang
+		      ;; erlang
 		      fastnav)
   "A list of packages to ensure are installed at launch.")
 
