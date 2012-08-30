@@ -8,20 +8,13 @@
 
 ;; packages to install if not present
 (defvar my-packages '(magit 
-		      ;; paredit
-		      ;; slime
-		      ;; clojure-mode
-		      ;; clojure-test-mode
-		      ;; haskell-mode 
-		      ;; auto-complete
-		      ;; ac-slime
+		      auto-complete
                       autopair
 		      scala-mode
+		      haskell-mode
 		      browse-kill-ring
 		      perspective
-		      rainbow-delimiters
-		      ;; erlang
-		      fastnav)
+		      rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)

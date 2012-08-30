@@ -3,73 +3,39 @@
 ;; perspectives
 (persp-mode)
 ;; some default perspectives...
-(persp-switch "haskell")
-;; (persp-switch "scala")
-;; (persp-switch "clojure")
+(persp-switch "paper")
+(persp-switch "scala")
 (persp-switch "main")
-(persp-rename "work")
+(persp-rename "thesis")
 
 ;; AC
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;; (ac-config-default)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
 
-;; (setq hl-paren-colors
-;;       '("red4" "OrangeRed4" "tomato4" "coral4"
-;;         "DarkOrange4" "orange4" "LightSalmon4" "salmon4" "brown4"))
-
-;; Clojure
-;; (defun clojure-hooks()
-;;   (paredit-mode)
-;;   (show-paren-mode)
-;;   (rainbow-delimiters-mode)
-;;   ;; (highlight-parentheses-mode)
-;; )
-
-;; (add-hook 'clojure-mode-hook 'clojure-hooks)
-
-;; (add-hook 'slime-repl-mode-hook
-;;           (defun clojure-mode-slime-font-lock ()
-;;             (require 'clojure-mode)
-;;             (let (font-lock-mode)
-;;               (clojure-mode-font-lock-setup))))
-
-;; (add-hook 'slime-repl-mode-hook 'clojure-hooks)
-;; (add-hook 'inferior-lisp-mode-hook 'clojure-hooks)
-
-;; ; ac-slime
-;; (add-hook 'slime-mode-hook 'set-up-slime-ac)
-;; (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-;; (eval-after-load "auto-complete"
-;;   '(add-to-list 'ac-modes 'slime-repl-mode))
+;; make auto-complete show immediately
+(setq ac-auto-show-menu 0.)
 
 ;; Haskell
-;; (defun haskell-hooks ()
-;;   (turn-on-haskell-doc-mode)
-;;   (turn-on-haskell-indent)
-;;   (rainbow-delimiters-mode)
-;;   (auto-complete-mode -1)
-;;   (autopair-mode))
+(defun haskell-hooks ()
+  (turn-on-haskell-doc-mode)
+  (turn-on-haskell-indent)
+  (rainbow-delimiters-mode)
+  (show-paren-mode)
+  (autopair-mode))
 
-;; (add-hook 'haskell-mode-hook 'haskell-hooks)
+(add-hook 'haskell-mode-hook 'haskell-hooks)
 
-;; (defun scala-hooks() 
-;;   (autopair-mode)
-;;   (rainbow-delimiters-mode))
+;; Scala
+(defun scala-hooks() 
+  (autopair-mode)
+  (show-paren-mode)
+  (rainbow-delimiters-mode))
 
 (add-hook 'scala-mode-hook 'scala-hooks)
-
-;; to get indentation right...
-;; (add-hook 'scala-mode-hook
-;;       (lambda () (local-set-key (kbd "RET") 'newline-and-indent)))
+(add-hook 'java-mode-hook 'scala-hooks)
 
 ;; Browse kill ring
 (browse-kill-ring-default-keybindings) 	; use M-y to browse kill ring
 
-(require 'fastnav)
 (require 'autopair)
-
-;; some flymake stuff
-;; (custom-set-faces
-;;  '(flymake-errline ((((class color)) (:underline "red"))))
-;;  '(flymake-warnline ((((class color)) (:underline "yellow")))))

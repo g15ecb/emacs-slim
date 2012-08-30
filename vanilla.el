@@ -50,3 +50,4 @@ If the new path's directories does not exist, create them."
 (add-to-list 'default-frame-alist '(width . 117))
 (add-to-list 'default-frame-alist '(left . 0))
 (add-to-list 'default-frame-alist '(height . 35))
+
