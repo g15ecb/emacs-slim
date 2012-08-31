@@ -33,6 +33,7 @@
   (rainbow-delimiters-mode))
 
 (add-hook 'scala-mode-hook 'scala-hooks)
+(add-hook 'scala-mode-inf-hook 'scala-hooks)
 (add-hook 'java-mode-hook 'scala-hooks)
 
 ;; Browse kill ring
