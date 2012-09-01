@@ -11,9 +11,9 @@
 		      auto-complete
                       autopair
 		      scala-mode
-		      haskell-mode
 		      browse-kill-ring
 		      perspective
+		      ack-and-a-half
 		      rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
 

@@ -2,11 +2,6 @@
 
 ;; perspectives
 (persp-mode)
-;; some default perspectives...
-(persp-switch "paper")
-(persp-switch "scala")
-(persp-switch "main")
-(persp-rename "thesis")
 
 ;; AC
 (require 'auto-complete-config)
@@ -16,25 +11,26 @@
 ;; make auto-complete show immediately
 (setq ac-auto-show-menu 0.)
 
-;; Haskell
-(defun haskell-hooks ()
-  (turn-on-haskell-doc-mode)
-  (turn-on-haskell-indent)
-  (rainbow-delimiters-mode)
-  (show-paren-mode)
-  (autopair-mode))
+;; ;; Haskell
+;; (defun haskell-hooks ()
+;;   (turn-on-haskell-doc-mode)
+;;   (turn-on-haskell-indent)
+;;   (rainbow-delimiters-mode)
+;;   (show-paren-mode)
+;;   (autopair-mode))
 
-(add-hook 'haskell-mode-hook 'haskell-hooks)
+;; (add-hook 'haskell-mode-hook 'haskell-hooks)
 
 ;; Scala
-(defun scala-hooks() 
+(defun default-hooks() 
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
-(add-hook 'scala-mode-hook 'scala-hooks)
-(add-hook 'scala-mode-inf-hook 'scala-hooks)
-(add-hook 'java-mode-hook 'scala-hooks)
+(add-hook 'scala-mode-hook 'default-hooks)
+(add-hook 'scala-mode-inf-hook 'default-hooks)
+(add-hook 'java-mode-hook 'default-hooks)
+(add-hook 'eshell-mode-hook 'default-hooks)
 
 ;; Browse kill ring
 (browse-kill-ring-default-keybindings) 	; use M-y to browse kill ring
