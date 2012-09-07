@@ -4,7 +4,14 @@
 (load "~/.emacs.d/setup-non-elpa.el")
 (load "~/.emacs.d/keybindings.el")
 
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/non-elpa/emacs-eclim/"))
+(require 'eclim)
+(setq eclim-auto-save t)
+(global-eclim-mode)
+(require 'eclimd)
+
 (custom-set-variables
+'(eclim-eclipse-dirs '("~/eclipse"))
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.

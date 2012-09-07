@@ -13,7 +13,7 @@
 		      scala-mode
 		      browse-kill-ring
 		      perspective
-		      ack-and-a-half
+		      full-ack
 		      rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
 
