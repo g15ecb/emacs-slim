@@ -4,7 +4,6 @@
 (global-set-key (kbd "M-9") 'query-replace)
 (global-set-key (kbd "M-1") 'align-regexp)
 (global-set-key (kbd "M-2") 'ack)
-(global-set-key (kbd "M-3") 'javadoc-lookup)
 (global-set-key (kbd "M-+") 'enlarge-window)
 
 ;; UI

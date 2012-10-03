@@ -14,6 +14,7 @@
 		      browse-kill-ring
 		      perspective
 		      full-ack
+		      tuareg
 		      rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
 
