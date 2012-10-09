@@ -10,7 +10,7 @@
 ;; eshell
 (add-hook 'eshell-mode-hook 'default-hooks)
 
-;; ;; Haskell
+;; Haskell
 (defun haskell-hooks ()
   (turn-on-haskell-doc-mode)
   (turn-on-haskell-indent)
@@ -24,4 +24,7 @@
 ;; OCaml
 (add-hook 'tuareg-mode-hook 'default-hooks)
 (add-hook 'tuareg-interactive-mode-hook 'default-hooks)
+
+
+
 
