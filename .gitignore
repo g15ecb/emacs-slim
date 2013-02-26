@@ -1,4 +1,6 @@
 emacs-backup
 *~
 elpa
-non-elpa
+auctex*
+*.dat
+
