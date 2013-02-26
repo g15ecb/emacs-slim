@@ -80,6 +80,8 @@ If the new path's directories does not exist, create them."
 		      perspective
 		      full-ack
 		      rainbow-delimiters
+		      clojure-mode
+		      nrepl
 		      fsharp-mode)
   "A list of packages to ensure are installed at launch.")
 ;; PACKAGES END -------------------------------------------------
