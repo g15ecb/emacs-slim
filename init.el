@@ -118,7 +118,7 @@ If the new path's directories does not exist, create them."
 ;; AC END -------------------------------------------------------
 
 ;; AucTeX BEGIN -------------------------------------------------
-;; download auctex; untar; mv to non-elpa/auctex
+;; rake; then cd into auctex dir
 ;; ./configure --with-texmf-dir=/usr/local/texlive/texmf-local
 ;; make
 (add-to-list 'load-path "~/.emacs.d/non-elpa/auctex-11.87")
