@@ -10,9 +10,6 @@
 (column-number-mode t)                   
 (size-indication-mode t)                 
 
-(fset 'insertPound "#")
-(global-set-key (kbd "M-3") 'insertPound)
-
 ;; some basic buffer stuff
 (setq-default fill-column 80)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -23,9 +20,7 @@
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 (setq ido-enable-last-directory-history nil) ; forget latest selected directory
 
-; return a backup file path of a give file path
-; with full directory mirroring from a root dir
-; non-existant dir will be created
+;; some backup stuff
 (defun my-backup-file-name (fpath)
   "Return a new file path of a given file path.
 If the new path's directories does not exist, create them."
@@ -47,7 +42,5 @@ If the new path's directories does not exist, create them."
 (setq-default ispell-program-name "/usr/local/bin/aspell")
 (setq mac-command-modifier 'meta)
 
-(add-to-list 'default-frame-alist '(width . 117))
-(add-to-list 'default-frame-alist '(left . 0))
-(add-to-list 'default-frame-alist '(height . 35))
+
 
