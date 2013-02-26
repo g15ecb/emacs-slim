@@ -2,6 +2,7 @@
 
 (persp-mode)
 (browse-kill-ring-default-keybindings) 	; use M-y to browse kill ring
+
 (require 'autopair)
 
 ;; AC

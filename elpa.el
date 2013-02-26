@@ -10,11 +10,9 @@
 (defvar my-packages '(magit 
 		      auto-complete
                       autopair
-		      scala-mode
 		      browse-kill-ring
 		      perspective
 		      full-ack
-		      tuareg
 		      rainbow-delimiters)
   "A list of packages to ensure are installed at launch.")
 
