@@ -121,8 +121,8 @@ If the new path's directories does not exist, create them."
 ;; rake; then cd into auctex dir
 ;; ./configure --with-texmf-dir=/usr/local/texlive/texmf-local
 ;; make
-(add-to-list 'load-path "~/.emacs.d/non-elpa/auctex-11.87")
-(add-to-list 'load-path "~/.emacs.d/non-elpa/auctex-11.87/preview")
+(add-to-list 'load-path "~/.emacs.d/auctex-11.87")
+(add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 (setq TeX-auto-save t)                  
