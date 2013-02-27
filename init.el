@@ -82,6 +82,7 @@ If the new path's directories does not exist, create them."
 		      rainbow-delimiters
 		      clojure-mode
 		      nrepl
+		      ac-nrepl
 		      fsharp-mode)
   "A list of packages to ensure are installed at launch.")
 ;; PACKAGES END -------------------------------------------------
@@ -116,6 +117,15 @@ If the new path's directories does not exist, create them."
 ;; make auto-complete show immediately
 (setq ac-auto-show-menu 0.)
 ;; AC END -------------------------------------------------------
+
+;; nrepl BEGIN --------------------------------------------------
+(require 'ac-nrepl)
+ (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+ (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+ (eval-after-load "auto-complete"
+   '(add-to-list 'ac-modes 'nrepl-mode))
+;; nrepl END ----------------------------------------------------
+
 
 ;; AucTeX BEGIN -------------------------------------------------
 ;; rake; then cd into auctex dir
