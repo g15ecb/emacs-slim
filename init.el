@@ -78,12 +78,12 @@ If the new path's directories does not exist, create them."
                       autopair
 		      browse-kill-ring
 		      perspective
-		      full-ack
 		      rainbow-delimiters
 		      clojure-mode
 		      nrepl
 		      ac-nrepl
-		      fsharp-mode)
+		      evil)
+		      
   "A list of packages to ensure are installed at launch.")
 ;; PACKAGES END -------------------------------------------------
 
@@ -100,10 +100,11 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 ;; =============================================================================
 
-
-
 ;; Setup BEGIN
 ;; *****************************************************************************
+
+(evil-mode)
+(linum-mode)
 
 (persp-mode)
 (browse-kill-ring-default-keybindings) 	; M-y to browse kill ring
@@ -131,23 +132,23 @@ If the new path's directories does not exist, create them."
 ;; rake; then cd into auctex dir
 ;; ./configure --with-texmf-dir=/usr/local/texlive/texmf-local
 ;; make
-(add-to-list 'load-path "~/.emacs.d/auctex-11.87")
-(add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-(setq TeX-auto-save t)                  
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)           ;set up AUCTeX to deal with
-                                        ;multiple file documents.
-(setq reftex-plug-into-AUCTeX t)
+;; (add-to-list 'load-path "~/.emacs.d/auctex-11.87")
+;; (add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
+;; (load "auctex.el" nil t t)
+;; (load "preview-latex.el" nil t t)
+;; (setq TeX-auto-save t)                  
+;; (setq TeX-parse-self t)
+;; (setq-default TeX-master nil)           ;set up AUCTeX to deal with
+;;                                         ;multiple file documents.
+;; (setq reftex-plug-into-AUCTeX t)
 
-(setq reftex-label-alist
-   '(("axiom"   ?a "ax:"  "~\\ref{%s}" nil ("axiom"   "ax.") -2)
-     ("theorem" ?h "thr:" "~\\ref{%s}" t   ("theorem" "th.") -3)))
+;; (setq reftex-label-alist
+;;    '(("axiom"   ?a "ax:"  "~\\ref{%s}" nil ("axiom"   "ax.") -2)
+;;      ("theorem" ?h "thr:" "~\\ref{%s}" t   ("theorem" "th.") -3)))
 
-(setq reftex-cite-format 'natbib)
+;; (setq reftex-cite-format 'natbib)
 
-(add-hook 'LaTeX-mode-hook 'reftex-mode)
+;; (add-hook 'LaTeX-mode-hook 'reftex-mode)
 ;; AucTeX END ---------------------------------------------------
 
 
