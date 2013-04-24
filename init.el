@@ -1,37 +1,38 @@
-;; Granville Barnett's Emacs Config
 ;; granvillebarnett@gmail.com
 
-;; NB. Some of the settings in this file require external tools to have been
+;; Some of the settings in this file require external tools to have been
 ;; installed, they include:
+
 ;; - OCaml and Opam (brew install ocaml opam; opam must be put on PATH)
 ;; - opam install merlin ocp-indent
 ;; - LaTeX (MacTeX)
+;; - AucTeX
 
+;; *****************************************************************************
 ;; Vanila Settings BEGIN
 ;; *****************************************************************************
-;; UI customisations
+
+;; Basic customisations
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
 (set-face-attribute 'default nil :height 240 :font "Menlo")
-
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
 (column-number-mode t)                   
 (size-indication-mode t)                 
-
-;; some basic buffer stuff
 (setq-default fill-column 80)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (setq default-major-mode 'text-mode)
 (global-font-lock-mode t)
 
+;; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 (setq ido-enable-last-directory-history nil) ; forget latest selected directory
 
-;; some backup stuff
+;; dump all backup files in specific location
 (defun my-backup-file-name (fpath)
   "Return a new file path of a given file path.
 If the new path's directories does not exist, create them."
@@ -53,11 +54,13 @@ If the new path's directories does not exist, create them."
 (setq-default ispell-program-name "/usr/local/bin/aspell")
 (setq mac-command-modifier 'meta)
 
+;; *****************************************************************************
 ;; Vanila Settings END
 ;; *****************************************************************************
 
+;; ~~~~~
 
-
+;; *****************************************************************************
 ;; Elpa BEGIN
 ;; *****************************************************************************
 
@@ -72,7 +75,6 @@ If the new path's directories does not exist, create them."
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-;; PACKAGES BEGIN  ----------------------------------------------
 (defvar my-packages '(magit 
 		      auto-complete
                       autopair
@@ -82,24 +84,22 @@ If the new path's directories does not exist, create them."
 		      evil)
 		      
   "A list of packages to ensure are installed at launch.")
-;; PACKAGES END -------------------------------------------------
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
+;; *****************************************************************************
 ;; Elpa END
 ;; *****************************************************************************
 
+;; ~~~~
 
-;; =============================================================================
-;; -----------------------------------------------------------------------------
-;; =============================================================================
-
-;; Setup BEGIN
+;; *****************************************************************************
+;; Package Setup BEGIN
 ;; *****************************************************************************
 
-(evil-mode)
+(evil-mode) ;; beautiful
 
 (persp-mode)
 (browse-kill-ring-default-keybindings) 	; M-y to browse kill ring
@@ -119,10 +119,6 @@ If the new path's directories does not exist, create them."
 (require 'merlin)
 
 (add-hook 'tuareg-mode-hook 'merlin-mode)
-;; utop
-;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-;;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 ;; OCaml END ----------------------------------------------------
 
 ;; AucTeX BEGIN -------------------------------------------------
@@ -148,17 +144,23 @@ If the new path's directories does not exist, create them."
  (add-hook 'LaTeX-mode-hook 'reftex-mode)
 ;; AucTeX END ---------------------------------------------------
 
-;; Setup END
+;; *****************************************************************************
+;; Package Setup END
 ;; *****************************************************************************
 
 
+;; *****************************************************************************
 ;; Hooks BEGIN
 ;; *****************************************************************************
-(defun default-hooks() 
-  (autopair-mode)
-  (show-paren-mode)
-  (rainbow-delimiters-mode))
+;; (defun default-hooks() 
+;;   (autopair-mode)
+;;   (show-paren-mode)
+;;   (rainbow-delimiters-mode))
 
+;(add-hook tuareg-mode-hook 'default-hooks)
+;(add-hook tuareg-interactive-mode-hook 'default-hooks)
+
+;; *****************************************************************************
 ;; Hooks END
 ;; *****************************************************************************
 
@@ -169,8 +171,11 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
 
+;; replace C-x f and C-x b with some nicer alternatives
 (global-set-key (kbd "M-f") 'ido-find-file)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
+
+;; I prefer this with ac
 (global-set-key (kbd "M-s") 'ac-isearch)
 
 (global-set-key (kbd "M-4") 'persp-switch)
@@ -180,6 +185,7 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-2") 'ack)
 
 ;; window stuff
+;(global-set-key (kbd "M-" 'split-window-below))
 (global-set-key (kbd "M-+") 'enlarge-window)
 (global-set-key (kbd "M-+") 'enlarge-window)
 (global-set-key (kbd "M-o") 'other-window)
@@ -190,3 +196,16 @@ If the new path's directories does not exist, create them."
 
 ;; Keybindings END
 ;; *****************************************************************************
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ac-auto-start 1)
+ '(ac-modes (quote (emacs-lisp-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode LaTeX-mode latex-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
