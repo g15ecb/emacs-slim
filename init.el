@@ -1,6 +1,12 @@
 ;; Granville Barnett's Emacs Config
 ;; granvillebarnett@gmail.com
 
+;; NB. Some of the settings in this file require external tools to have been
+;; installed, they include:
+;; - OCaml and Opam (brew install ocaml opam; opam must be put on PATH)
+;; - opam install merlin ocp-indent
+;; - LaTeX (MacTeX)
+
 ;; Vanila Settings BEGIN
 ;; *****************************************************************************
 ;; UI customisations
@@ -52,12 +58,6 @@ If the new path's directories does not exist, create them."
 
 
 
-;; =============================================================================
-;; -----------------------------------------------------------------------------
-;; =============================================================================
-
-
-
 ;; Elpa BEGIN
 ;; *****************************************************************************
 
@@ -79,9 +79,6 @@ If the new path's directories does not exist, create them."
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
-		      clojure-mode
-		      nrepl
-		      ac-nrepl
 		      evil)
 		      
   "A list of packages to ensure are installed at launch.")
@@ -95,7 +92,6 @@ If the new path's directories does not exist, create them."
 ;; *****************************************************************************
 
 
-
 ;; =============================================================================
 ;; -----------------------------------------------------------------------------
 ;; =============================================================================
@@ -104,7 +100,6 @@ If the new path's directories does not exist, create them."
 ;; *****************************************************************************
 
 (evil-mode)
-(linum-mode)
 
 (persp-mode)
 (browse-kill-ring-default-keybindings) 	; M-y to browse kill ring
@@ -119,44 +114,42 @@ If the new path's directories does not exist, create them."
 (setq ac-auto-show-menu 0.)
 ;; AC END -------------------------------------------------------
 
-;; nrepl BEGIN --------------------------------------------------
-(require 'ac-nrepl)
- (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
- (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
- (eval-after-load "auto-complete"
-   '(add-to-list 'ac-modes 'nrepl-mode))
-;; nrepl END ----------------------------------------------------
+;; OCaml BEGIN --------------------------------------------------
+(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
+(require 'merlin)
 
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+;; utop
+;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+;;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+;; OCaml END ----------------------------------------------------
 
 ;; AucTeX BEGIN -------------------------------------------------
 ;; rake; then cd into auctex dir
 ;; ./configure --with-texmf-dir=/usr/local/texlive/texmf-local
 ;; make
-;; (add-to-list 'load-path "~/.emacs.d/auctex-11.87")
-;; (add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
-;; (load "auctex.el" nil t t)
-;; (load "preview-latex.el" nil t t)
-;; (setq TeX-auto-save t)                  
-;; (setq TeX-parse-self t)
-;; (setq-default TeX-master nil)           ;set up AUCTeX to deal with
-;;                                         ;multiple file documents.
-;; (setq reftex-plug-into-AUCTeX t)
+ (add-to-list 'load-path "~/.emacs.d/auctex-11.87")
+ (add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
+ (load "auctex.el" nil t t)
+ (load "preview-latex.el" nil t t)
+ (setq TeX-auto-save t)                  
+ (setq TeX-parse-self t)
+ (setq-default TeX-master nil)           ;set up AUCTeX to deal with
+                                         ;multiple file documents.
+ (setq reftex-plug-into-AUCTeX t)
 
-;; (setq reftex-label-alist
-;;    '(("axiom"   ?a "ax:"  "~\\ref{%s}" nil ("axiom"   "ax.") -2)
-;;      ("theorem" ?h "thr:" "~\\ref{%s}" t   ("theorem" "th.") -3)))
+ (setq reftex-label-alist
+    '(("axiom"   ?a "ax:"  "~\\ref{%s}" nil ("axiom"   "ax.") -2)
+      ("theorem" ?h "thr:" "~\\ref{%s}" t   ("theorem" "th.") -3)))
 
-;; (setq reftex-cite-format 'natbib)
+ (setq reftex-cite-format 'natbib)
 
-;; (add-hook 'LaTeX-mode-hook 'reftex-mode)
+ (add-hook 'LaTeX-mode-hook 'reftex-mode)
 ;; AucTeX END ---------------------------------------------------
 
-
-
-;; =============================================================================
-;; -----------------------------------------------------------------------------
-;; =============================================================================
-
+;; Setup END
+;; *****************************************************************************
 
 
 ;; Hooks BEGIN
@@ -166,46 +159,34 @@ If the new path's directories does not exist, create them."
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
-(add-hook 'fsharp-mode-hook 'default-hooks)
-(add-hook 'inferior-fsharp-mode-hooks 'default-hooks)
-
 ;; Hooks END
 ;; *****************************************************************************
 
 
 
-;; =============================================================================
-;; -----------------------------------------------------------------------------
-;; =============================================================================
-
-
-
 ;; Keybindings BEGIN
 ;; *****************************************************************************
+(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
+
+
+(global-set-key (kbd "M-f") 'ido-find-file)
+(global-set-key (kbd "M-b") 'ido-switch-buffer)
+(global-set-key (kbd "M-s") 'ac-isearch)
 
 (global-set-key (kbd "M-4") 'persp-switch)
 (global-set-key (kbd "M-7") 'magit-status)
-(global-set-key (kbd "M-8") 'compile)
 (global-set-key (kbd "M-9") 'query-replace)
 (global-set-key (kbd "M-1") 'align-regexp)
 (global-set-key (kbd "M-2") 'ack)
+
+;; window stuff
 (global-set-key (kbd "M-+") 'enlarge-window)
+(global-set-key (kbd "M-+") 'enlarge-window)
+(global-set-key (kbd "M-o") 'other-window)
 
 ;; UI
-(global-set-key [f9] 'ns-toggle-fullscreen)
+;; (global-set-key [f9] 'ns-toggle-fullscreen)
+
 
 ;; Keybindings END
 ;; *****************************************************************************
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ac-modes (quote (inferior-fsharp-mode fsharp-mode emacs-lisp-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
