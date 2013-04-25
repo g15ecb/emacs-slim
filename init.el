@@ -81,6 +81,7 @@ If the new path's directories does not exist, create them."
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
+		      scala-mode2
 		      evil)
 		      
   "A list of packages to ensure are installed at launch.")
@@ -119,7 +120,10 @@ If the new path's directories does not exist, create them."
 (require 'merlin)
 
 (add-hook 'tuareg-mode-hook 'merlin-mode)
-;; OCaml END ----------------------------------------------------
+
+(add-to-list 'load-path "~/.emacs.d/utop/src/top")
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer END ----------------------------------------------------
 
 ;; AucTeX BEGIN -------------------------------------------------
 ;; rake; then cd into auctex dir
