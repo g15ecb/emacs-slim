@@ -82,6 +82,7 @@ If the new path's directories does not exist, create them."
 		      perspective
 		      rainbow-delimiters
 		      scala-mode2
+		      haskell-mode
 		      evil)
 		      
   "A list of packages to ensure are installed at launch.")
@@ -163,6 +164,17 @@ If the new path's directories does not exist, create them."
 
 ;(add-hook tuareg-mode-hook 'default-hooks)
 ;(add-hook tuareg-interactive-mode-hook 'default-hooks)
+
+;(defun haskell-hooks()
+  ;(local-set-key (kbd "M-p") 'inferior-haskell-load-file)
+  ;(haskell-doc-mode))
+
+;(add-hook 'haskell-mode-hook 'haskell-hooks)
+
+;(defun ocaml-hooks()
+  ;(local-set-key (kbd "M-p") 'tuareg-eval-buffer))
+
+;(add-hook 'tuareg-mode-hook 'ocaml-hooks)
 
 ;; *****************************************************************************
 ;; Hooks END
