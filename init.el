@@ -81,7 +81,7 @@ If the new path's directories does not exist, create them."
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
-		      tuareg-mode
+		      tuareg
 		      haskell-mode
 		      evil)
 		      
@@ -121,11 +121,15 @@ If the new path's directories does not exist, create them."
 ;; - brew install opam
 ;; - opam install utop (https://github.com/diml/utop)
 ;; - opam install merlin (https://github.com/def-lkb/merlin)
-;; The following is what opam installation will give you
+;; - opam install ocp-indent (https://github.com/OCamlPro/ocp-indent)
+;; The load paths are what opam will dump stuff in
 (add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
 (require 'merlin)
 
 (add-hook 'tuareg-mode-hook 'merlin-mode)
+
+;; tuareg will use ocp-indent as the default indent engine if you have the following
+(load-file "/Users/gbarnett/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
 ;; cd ~/.emacs then do a git clone git@github.com:diml/utop.git
 (add-to-list 'load-path "~/.emacs.d/utop/src/top")
