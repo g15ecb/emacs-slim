@@ -81,7 +81,7 @@ If the new path's directories does not exist, create them."
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
-		      scala-mode2
+		      tuareg-mode
 		      haskell-mode
 		      evil)
 		      
@@ -117,14 +117,21 @@ If the new path's directories does not exist, create them."
 ;; AC END -------------------------------------------------------
 
 ;; OCaml BEGIN --------------------------------------------------
+;; NB. Prerequisites:
+;; - brew install opam
+;; - opam install utop (https://github.com/diml/utop)
+;; - opam install merlin (https://github.com/def-lkb/merlin)
+;; The following is what opam installation will give you
 (add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
 (require 'merlin)
 
 (add-hook 'tuareg-mode-hook 'merlin-mode)
 
+;; cd ~/.emacs then do a git clone git@github.com:diml/utop.git
 (add-to-list 'load-path "~/.emacs.d/utop/src/top")
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer END ----------------------------------------------------
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;; OCaml END ----------------------------------------------------
 
 ;; AucTeX BEGIN -------------------------------------------------
 ;; rake; then cd into auctex dir
@@ -162,19 +169,20 @@ If the new path's directories does not exist, create them."
 ;;   (show-paren-mode)
 ;;   (rainbow-delimiters-mode))
 
-;(add-hook tuareg-mode-hook 'default-hooks)
-;(add-hook tuareg-interactive-mode-hook 'default-hooks)
+;; (add-hook tuareg-mode-hook 'default-hooks)
 
-;(defun haskell-hooks()
-  ;(local-set-key (kbd "M-p") 'inferior-haskell-load-file)
-  ;(haskell-doc-mode))
+(defun ocaml-hooks()
+  (local-set-key (kbd "M-p") 'tuareg-eval-phrase))
 
-;(add-hook 'haskell-mode-hook 'haskell-hooks)
+(add-hook 'tuareg-mode-hook 'ocaml-hooks)
 
-;(defun ocaml-hooks()
-  ;(local-set-key (kbd "M-p") 'tuareg-eval-buffer))
+(defun haskell-hooks()
+  (local-set-key (kbd "M-p") 'inferior-haskell-load-file)
+  (haskell-doc-mode))
 
-;(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+(add-hook 'haskell-mode-hook 'haskell-hooks)
+
+
 
 ;; *****************************************************************************
 ;; Hooks END
