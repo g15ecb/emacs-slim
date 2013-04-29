@@ -82,6 +82,7 @@ If the new path's directories does not exist, create them."
 		      perspective
 		      rainbow-delimiters
 		      tuareg
+		      auto-complete-clang
 		      haskell-mode
 		      evil)
 		      
@@ -136,6 +137,12 @@ If the new path's directories does not exist, create them."
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 ;; OCaml END ----------------------------------------------------
+
+;; auto-complete-clang BEGIN ------------------------------------
+(defun my-ac-cc-mode-setup ()
+(setq ac-sources (append '(ac-source-clang ac-source-yasnippet) ac-sources)))
+(add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
+;; auto-complete-clang END --------------------------------------
 
 ;; AucTeX BEGIN -------------------------------------------------
 ;; rake; then cd into auctex dir
