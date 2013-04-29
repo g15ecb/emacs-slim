@@ -139,6 +139,7 @@ If the new path's directories does not exist, create them."
 ;; OCaml END ----------------------------------------------------
 
 ;; auto-complete-clang BEGIN ------------------------------------
+(require 'auto-complete-clang)
 (defun my-ac-cc-mode-setup ()
 (setq ac-sources (append '(ac-source-clang ac-source-yasnippet) ac-sources)))
 (add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
