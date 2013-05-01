@@ -130,7 +130,7 @@ If the new path's directories does not exist, create them."
 (add-hook 'tuareg-mode-hook 'merlin-mode)
 
 ;; tuareg will use ocp-indent as the default indent engine if you have the following
-(load-file "/Users/gbarnett/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
 ;; cd ~/.emacs then do a git clone git@github.com:diml/utop.git
 (add-to-list 'load-path "~/.emacs.d/utop/src/top")
