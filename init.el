@@ -12,6 +12,8 @@
 ;; Vanila Settings 
 ;; *****************************************************************************
 (scroll-bar-mode -1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
 (set-face-attribute 'default nil :height 240 :font "Menlo")
@@ -109,6 +111,9 @@ If the new path's directories does not exist, create them."
 ;; http://nullprogram.com/blog/2013/01/30/
 (require 'javadoc-lookup)
 (javadoc-add-roots "~/java-docs/api")
+
+(javadoc-add-artifacts [junit junit "4.11"]
+		       [org.antlr antlr4 "4.0"])
 
 
 ;; autocomplete 
