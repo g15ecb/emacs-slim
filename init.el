@@ -76,20 +76,12 @@ If the new path's directories does not exist, create them."
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
-		      ;; tuareg
-		      auto-complete-clang
-		      ;; haskell-mode
-		      rust-mode
-		      javadoc-lookup
-		      d-mode
 		      evil))
 
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
-
 
 
 ;; Package Setup 
@@ -99,34 +91,24 @@ If the new path's directories does not exist, create them."
 
 
 (persp-mode)
+(persp-rename "1")
+(persp-switch "2")
+(persp-switch "3")
+(persp-switch "4")
+(persp-switch "1")
 
+(require 'yasnippet)
+(yas-global-mode 1)
 
 (browse-kill-ring-default-keybindings) 	; m-y to browse kill ring
 
-
 (require 'autopair)
-
-
-;; javadoc-lookup
-;; http://nullprogram.com/blog/2013/01/30/
-(require 'javadoc-lookup)
-(javadoc-add-roots "~/java-docs/api")
-
-(javadoc-add-artifacts [junit junit "4.11"]
-		       [org.antlr antlr4 "4.0"])
-
 
 ;; autocomplete 
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 (setq ac-auto-show-menu 0.)		; show immediately
-;; auto-complete-clang 
-(require 'auto-complete-clang)
-(defun my-ac-cc-mode-setup ()
-(setq ac-sources (append '(ac-source-clang ac-source-yasnippet) ac-sources)))
-(add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
-
 
 ;; AucTeX 
 ;; rake; then cd into auctex dir
@@ -154,31 +136,14 @@ If the new path's directories does not exist, create them."
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
 (add-hook 'LaTeX-mode-hook 'latex-hooks)
 
-
 ;; Hooks 
 ;; *****************************************************************************
-(defun java-hooks() 
+(defun c-hooks() 
   (autopair-mode)
   (show-paren-mode)
-  (rainbow-delimiters-mode)
-  (local-set-key (kbd "M-p") 'javadoc-lookup))
+  (rainbow-delimiters-mode))
 
-(add-hook 'java-mode-hook 'java-hooks)
-
-;; (defun ocaml-hooks()
-;;   (local-set-key (kbd "M-p") 'tuareg-eval-phrase)
-;;   (local-set-key (kbd "M-i") 'merlin-try-completion))
-
-;; (add-hook 'tuareg-mode-hook 'ocaml-hooks)
-
-;; (defun haskell-hooks()
-;;   (local-set-key (kbd "M-p") 'inferior-haskell-load-file)
-;;   (haskell-doc-mode))
-
-;; (add-hook 'haskell-mode-hook 'haskell-hooks)
-
-
-
+(add-hook 'c-mode-common-hook 'c-hooks)
 
 ;; Global Keybindings 
 ;; *****************************************************************************
@@ -206,9 +171,6 @@ If the new path's directories does not exist, create them."
 
 ;; UI
 ;; (global-set-key [f9] 'ns-toggle-fullscreen)
-
-
-
 
 ;; VARIABLES
 ;; *****************************************************************************
