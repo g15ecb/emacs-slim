@@ -48,17 +48,15 @@ If the new path's directories does not exist, create them."
 (require 'uniquify)
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
 (server-start)
 
-(setq-default ispell-program-name "/usr/local/bin/aspell")
+;; (setq-default ispell-program-name "/usr/local/bin/aspell")
 (setq mac-command-modifier 'meta)
+(load-theme 'tango)
 
 ;; *****************************************************************************
 ;; Vanila Settings END
 ;; *****************************************************************************
-
-;; ~~~~~
 
 ;; *****************************************************************************
 ;; Elpa BEGIN
@@ -85,7 +83,6 @@ If the new path's directories does not exist, create them."
 		      auto-complete-clang
 		      haskell-mode
 		      evil)
-		      
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
