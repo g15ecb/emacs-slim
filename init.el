@@ -6,8 +6,7 @@
 
 ;; - LaTeX (MacTeX)
 ;; - AucTeX
-;; - Clang (on OSX this requires installation of XCode and the Command Line Tools)
-
+;; - OCaml (opam: utop + merlin)
 
 ;; Vanila Settings 
 ;; *****************************************************************************
@@ -72,13 +71,11 @@ If the new path's directories does not exist, create them."
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
-		      tuareg
-		      auto-complete-clang
 		      haskell-mode
+		      json
+		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
-=======
-		      evil))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -90,16 +87,12 @@ If the new path's directories does not exist, create them."
 
 (evil-mode)
 
-
 (persp-mode)
 (persp-rename "1")
 (persp-switch "2")
 (persp-switch "3")
 (persp-switch "4")
 (persp-switch "1")
-
-(require 'yasnippet)
-(yas-global-mode 1)
 
 (browse-kill-ring-default-keybindings) 	; m-y to browse kill ring
 
@@ -112,7 +105,7 @@ If the new path's directories does not exist, create them."
 (setq ac-auto-show-menu 0.)		; show immediately
 
 ;; AucTeX 
-;; rake; then cd into auctex dir
+;; cd into auctex dir
 ;; ./configure --with-texmf-dir=/usr/local/texlive/texmf-local
 ;; make
 (add-to-list 'load-path "~/.emacs.d/auctex-11.87")
@@ -139,12 +132,27 @@ If the new path's directories does not exist, create them."
 
 ;; Hooks 
 ;; *****************************************************************************
-(defun c-hooks() 
+(defun common-hooks() 
   (autopair-mode)
   (show-paren-mode)
-  (rainbow-delimiters-mode))
+  (rainbow-delimiters-mode)
+  (local-set-key (kbd "M-e") 'tuareg-eval-buffer))
 
-(add-hook 'c-mode-common-hook 'c-hooks)
+(add-hook 'c-mode-common-hook 'common-hooks)
+(add-hook 'haskell-mode-hook 'common-hooks)
+
+(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
+(require 'merlin)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(setq merlin-use-auto-complete-mode t)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+
+(require 'fsharp-mode)
+(setq inferior-fsharp-program "/usr/bin/fsharpi --readline-")
+(setq fsharp-compiler "/usr/bin/fsharpc")
 
 ;; Global Keybindings 
 ;; *****************************************************************************
@@ -181,7 +189,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-start 1)
- '(ac-modes (quote (emacs-lisp-mode d-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode LaTeX-mode latex-mode rust-mode))))
+ '(ac-modes (quote (emacs-lisp-mode d-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode LaTeX-mode latex-mode rust-mode tuareg-interactive-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
