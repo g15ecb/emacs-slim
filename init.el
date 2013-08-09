@@ -49,7 +49,6 @@ If the new path's directories does not exist, create them."
 (setq mac-command-modifier 'meta)
 (load-theme 'tango)
 
-
 ;; Elpa 
 ;; *****************************************************************************
 
@@ -66,13 +65,12 @@ If the new path's directories does not exist, create them."
   (package-refresh-contents))
 
 (defvar my-packages '(magit 
-		      auto-complete
                       autopair
 		      browse-kill-ring
 		      perspective
 		      rainbow-delimiters
 		      haskell-mode
-		      json
+		      ghc 		; ghc-mod
 		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
@@ -80,7 +78,6 @@ If the new path's directories does not exist, create them."
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
 
 ;; Package Setup 
 ;; *****************************************************************************
@@ -99,10 +96,10 @@ If the new path's directories does not exist, create them."
 (require 'autopair)
 
 ;; autocomplete 
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
-(setq ac-auto-show-menu 0.)		; show immediately
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;; (ac-config-default)
+;; (setq ac-auto-show-menu 0.)		; show immediately
 
 ;; AucTeX 
 ;; cd into auctex dir
@@ -135,24 +132,36 @@ If the new path's directories does not exist, create them."
 (defun common-hooks() 
   (autopair-mode)
   (show-paren-mode)
-  (rainbow-delimiters-mode)
-  (local-set-key (kbd "M-e") 'tuareg-eval-buffer))
+  (rainbow-delimiters-mode))
+
+(defun ocaml-hooks()
+  (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+  (local-set-key (kbd "M-/") 'utop-edit-complete))
+
+(defun haskell-hooks()
+    (local-set-key (kbd "M-e") 'inferior-haskell-load-file)
+    (autoload 'ghc-init "ghc" nil t)	; ghc-mod
+    (ghc-init)				; ghc-mod
+    (turn-on-haskell-doc-mode)
+    (turn-on-haskell-indentation))
 
 (add-hook 'c-mode-common-hook 'common-hooks)
+
 (add-hook 'haskell-mode-hook 'common-hooks)
+(add-hook 'haskell-mode-hook 'haskell-hooks)
+
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'ocaml-hooks)
 
 (add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
-(require 'merlin)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'tuareg-mode-hook 'common-hooks)
-(setq merlin-use-auto-complete-mode t)
+;; (require 'merlin)
+;; (add-hook 'tuareg-mode-hook 'merlin-mode)
+;; (add-hook 'tuareg-mode-hook 'common-hooks)
+;; (setq merlin-use-auto-complete-mode t)
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
-
-(require 'fsharp-mode)
-(setq inferior-fsharp-program "/usr/bin/fsharpi --readline-")
-(setq fsharp-compiler "/usr/bin/fsharpc")
+(load-file "/Users/gb/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
 ;; Global Keybindings 
 ;; *****************************************************************************
@@ -163,7 +172,7 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
 
 ;; I prefer this with ac
-(global-set-key (kbd "M-s") 'ac-isearch)
+(global-set-key (kbd "M--") 'ac-isearch)
 
 (global-set-key (kbd "M-4") 'persp-switch)
 (global-set-key (kbd "M-7") 'magit-status)
@@ -178,21 +187,3 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-0") 'compile)
 
-;; UI
-;; (global-set-key [f9] 'ns-toggle-fullscreen)
-
-;; VARIABLES
-;; *****************************************************************************
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ac-auto-start 1)
- '(ac-modes (quote (emacs-lisp-mode d-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode LaTeX-mode latex-mode rust-mode tuareg-interactive-mode utop-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
