@@ -15,7 +15,7 @@
 (tool-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
-(set-face-attribute 'default nil :height 240 :font "Menlo")
+(set-face-attribute 'default nil :height 180) 
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
 (column-number-mode t)                   
@@ -46,9 +46,6 @@ If the new path's directories does not exist, create them."
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (server-start)
 
-(setq mac-command-modifier 'meta)
-(load-theme 'tango)
-
 ;; Elpa 
 ;; *****************************************************************************
 
@@ -68,9 +65,10 @@ If the new path's directories does not exist, create them."
                       autopair
 		      browse-kill-ring
 		      perspective
+		      color-theme-solarized
+		      pandoc-mode
 		      rainbow-delimiters
-		      haskell-mode
-		      ghc 		; ghc-mod
+                      auto-complete
 		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
@@ -81,6 +79,8 @@ If the new path's directories does not exist, create them."
 
 ;; Package Setup 
 ;; *****************************************************************************
+
+(load-theme 'solarized-dark t)
 
 (evil-mode)
 
@@ -96,36 +96,36 @@ If the new path's directories does not exist, create them."
 (require 'autopair)
 
 ;; autocomplete 
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-;; (ac-config-default)
-;; (setq ac-auto-show-menu 0.)		; show immediately
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+(setq ac-auto-show-menu 0.)		; show immediately
 
 ;; AucTeX 
 ;; cd into auctex dir
 ;; ./configure --with-texmf-dir=/usr/local/texlive/texmf-local
 ;; make
-(add-to-list 'load-path "~/.emacs.d/auctex-11.87")
-(add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-(setq TeX-auto-save t)                  
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)           ;set up AUCTeX to deal with
-                                        ;multiple file documents.
-(setq reftex-plug-into-AUCTeX t)
-
-(setq reftex-label-alist
-   '(("axiom"   ?a "ax:"  "~\\ref{%s}" nil ("axiom"   "ax.") -2)
-     ("theorem" ?h "thr:" "~\\ref{%s}" t   ("theorem" "th.") -3)))
-
-(setq reftex-cite-format 'natbib)
-
-(defun latex-hooks()
-  (set 'compile-command "rake"))
-
-(add-hook 'LaTeX-mode-hook 'reftex-mode)
-(add-hook 'LaTeX-mode-hook 'latex-hooks)
+;(add-to-list 'load-path "~/.emacs.d/auctex-11.87")
+;(add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
+;(load "auctex.el" nil t t)
+;(load "preview-latex.el" nil t t)
+;(setq TeX-auto-save t)                  
+;(setq TeX-parse-self t)
+;(setq-default TeX-master nil)           ;set up AUCTeX to deal with
+;                                        ;multiple file documents.
+;(setq reftex-plug-into-AUCTeX t)
+;
+;(setq reftex-label-alist
+;   '(("axiom"   ?a "ax:"  "~\\ref{%s}" nil ("axiom"   "ax.") -2)
+;     ("theorem" ?h "thr:" "~\\ref{%s}" t   ("theorem" "th.") -3)))
+;
+;(setq reftex-cite-format 'natbib)
+;
+;(defun latex-hooks()
+;  (set 'compile-command "rake"))
+;
+;(add-hook 'LaTeX-mode-hook 'reftex-mode)
+;(add-hook 'LaTeX-mode-hook 'latex-hooks)
 
 ;; Hooks 
 ;; *****************************************************************************
@@ -138,34 +138,34 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
   (local-set-key (kbd "M-/") 'utop-edit-complete))
 
-(defun haskell-hooks()
-    (local-set-key (kbd "M-e") 'inferior-haskell-load-file)
-    (autoload 'ghc-init "ghc" nil t)	; ghc-mod
-    (ghc-init)				; ghc-mod
-    (turn-on-haskell-doc-mode)
-    (turn-on-haskell-indentation))
+;(defun haskell-hooks()
+;    (local-set-key (kbd "M-e") 'inferior-haskell-load-file)
+;    (autoload 'ghc-init "ghc" nil t)	; ghc-mod
+;    (ghc-init)				; ghc-mod
+;    (turn-on-haskell-doc-mode)
+;    (turn-on-haskell-indentation))
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 
-(add-hook 'haskell-mode-hook 'common-hooks)
-(add-hook 'haskell-mode-hook 'haskell-hooks)
+;(add-hook 'haskell-mode-hook 'common-hooks)
+;(add-hook 'haskell-mode-hook 'haskell-hooks)
 
 (add-hook 'tuareg-mode-hook 'common-hooks)
 (add-hook 'tuareg-mode-hook 'ocaml-hooks)
 
 (add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
-;; (require 'merlin)
-;; (add-hook 'tuareg-mode-hook 'merlin-mode)
-;; (add-hook 'tuareg-mode-hook 'common-hooks)
-;; (setq merlin-use-auto-complete-mode t)
+(require 'merlin)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(setq merlin-use-auto-complete-mode t)
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
-(load-file "/Users/gb/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+;(load-file "~/opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
 ;; Global Keybindings 
 ;; *****************************************************************************
-(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
+;(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
 ;; replace C-x f and C-x b with some nicer alternatives
 (global-set-key (kbd "M-f") 'ido-find-file)
