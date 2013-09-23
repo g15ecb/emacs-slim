@@ -68,6 +68,7 @@ If the new path's directories does not exist, create them."
 		      pandoc-mode
 		      rainbow-delimiters
                       auto-complete
+                      tangotango-theme
 		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
@@ -199,3 +200,5 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(set-face-attribute 'default nil :height 200)
