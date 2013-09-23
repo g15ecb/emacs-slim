@@ -161,7 +161,7 @@ If the new path's directories does not exist, create them."
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
-;(load-file "~/opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
 ;; Global Keybindings 
 ;; *****************************************************************************
