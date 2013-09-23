@@ -15,7 +15,6 @@
 (tool-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)            
 (setq inhibit-startup-message t inhibit-startup-echo-area-message t)
-(set-face-attribute 'default nil :height 180) 
 (setq ring-bell-function 'ignore)                                   
 (line-number-mode t)                     
 (column-number-mode t)                   
@@ -80,7 +79,8 @@ If the new path's directories does not exist, create them."
 ;; Package Setup 
 ;; *****************************************************************************
 
-(load-theme 'solarized-dark t)
+(require 'tangotango-theme)
+(set-face-attribute 'default nil :height 180) 
 
 (evil-mode)
 
@@ -161,7 +161,7 @@ If the new path's directories does not exist, create them."
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
-;(load-file "~/opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
 ;; Global Keybindings 
 ;; *****************************************************************************
@@ -187,3 +187,15 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-0") 'compile)
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
