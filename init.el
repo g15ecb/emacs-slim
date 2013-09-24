@@ -65,6 +65,7 @@ If the new path's directories does not exist, create them."
 		      browse-kill-ring
 		      perspective
 		      color-theme-solarized
+		      markdown-mode
 		      pandoc-mode
 		      rainbow-delimiters
                       auto-complete
