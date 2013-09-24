@@ -43,7 +43,6 @@ If the new path's directories does not exist, create them."
 (require 'uniquify)
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-(server-start)
 
 ;; Elpa 
 ;; *****************************************************************************
