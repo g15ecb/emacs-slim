@@ -64,9 +64,10 @@ If the new path's directories does not exist, create them."
 		      browse-kill-ring
 		      perspective
 		      color-theme-solarized
-		      markdown-mode
-		      pandoc-mode
 		      rainbow-delimiters
+		      geiser
+		      helm
+		      helm-gtags
                       auto-complete
                       tangotango-theme
 		      tuareg
@@ -84,6 +85,7 @@ If the new path's directories does not exist, create them."
 (set-face-attribute 'default nil :height 180) 
 
 (evil-mode)
+(helm-mode 1)
 
 (persp-mode)
 (persp-rename "1")
@@ -123,11 +125,6 @@ If the new path's directories does not exist, create them."
 (setq reftex-cite-format 'natbib)
 
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
-
-(defun latex-hooks()
-  (flyspell-mode))
-
-(add-hook 'LaTeX-mode-hook 'latex-hooks)
 
 ;; Hooks 
 ;; *****************************************************************************
@@ -174,6 +171,7 @@ If the new path's directories does not exist, create them."
 ;; replace C-x f and C-x b with some nicer alternatives
 (global-set-key (kbd "M-f") 'ido-find-file)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
+(global-set-key (kbd "M-#") 'helm-mini)
 
 ;; I prefer this with ac
 (global-set-key (kbd "M--") 'ac-isearch)
@@ -204,5 +202,10 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(setq geiser-active-implementations '(racket))
+(ac-define-source geiser
+ '((candidates . (lambda () (append (geiser-completion--complete ac-prefix nil) (geiser-completion--complete ac-prefix t))))))
+(add-hook 'scheme-mode-hook (lambda () (setq ac-sources (append ac-sources '(ac-source-geiser)))))
 
 (set-face-attribute 'default nil :height 180)
