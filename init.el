@@ -1,14 +1,20 @@
 ;; Granville Barnett's Emacs Config
 ;; granvillebarnett@gmail.com
 
-;; Some of the settings in this file require external tools to have been
-;; installed, they include:
-
-;; - LaTeX (MacTeX)
+;; Prerequisites:
+;; - LaTeX 
 ;; - AucTeX
-;; - OCaml (opam: utop + merlin)
+;; - OCaml (utop + merlin)
 
-;; Vanila Settings 
+;; Structure
+;; - GUI + Basics 
+;; - Elpa 
+;; - Package Configuration
+;; - Hooks
+;; - Global Keybindings
+
+;; *****************************************************************************
+;; GUI + Basics
 ;; *****************************************************************************
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
@@ -44,11 +50,11 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+
+;; *****************************************************************************
 ;; Elpa 
 ;; *****************************************************************************
-
 (require 'package)
-
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                            ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -66,10 +72,10 @@ If the new path's directories does not exist, create them."
 		      color-theme-solarized
 		      rainbow-delimiters
 		      d-mode
-		      geiser
 		      helm
 		      helm-gtags
                       auto-complete
+		      smartparens
                       tangotango-theme
 		      tuareg
 		      evil)
@@ -79,11 +85,11 @@ If the new path's directories does not exist, create them."
   (when (not (package-installed-p p))
     (package-install p)))
 
-;; Package Setup 
-;; *****************************************************************************
 
+;; *****************************************************************************
+;; Package Configuration 
+;; *****************************************************************************
 (require 'tangotango-theme)
-(set-face-attribute 'default nil :height 180) 
 
 (evil-mode)
 (helm-mode 1)
@@ -97,21 +103,16 @@ If the new path's directories does not exist, create them."
 
 (browse-kill-ring-default-keybindings) 	; m-y to browse kill ring
 
-(require 'autopair)
-
 ;; autocomplete 
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 (setq ac-auto-show-menu 0.)		; show immediately
 
-;; AucTeX 
-;; cd into auctex dir
-;; ./configure --with-texmf-dir=/usr/local/texlive/texmf-local
-;; make
+;; AucTeX
 (add-to-list 'load-path "~/.emacs.d/auctex-11.87")
 (add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
-(load "auctex.el" nil t t)
+(load "auctex.rel" nil t t)
 (load "preview-latex.el" nil t t)
 (setq TeX-auto-save t)                  
 (setq TeX-parse-self t)
@@ -124,28 +125,38 @@ If the new path's directories does not exist, create them."
      ("theorem" ?h "thr:" "~\\ref{%s}" t   ("theorem" "th.") -3)))
 
 (setq reftex-cite-format 'natbib)
-
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
 
+;; OCaml
+(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
+(require 'merlin)
+(setq merlin-use-auto-complete-mode t)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+
+
+;; *****************************************************************************
 ;; Hooks 
 ;; *****************************************************************************
 (defun common-hooks() 
-  (autopair-mode)
+  (smartparens-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
+;; Ocaml
 (defun ocaml-hooks()
   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
   (local-set-key (kbd "M-/") 'utop-edit-complete))
 
-;(defun haskell-hooks()
-;    (local-set-key (kbd "M-e") 'inferior-haskell-load-file)
-;    (autoload 'ghc-init "ghc" nil t)	; ghc-mod
-;    (ghc-init)				; ghc-mod
-;    (turn-on-haskell-doc-mode)
-;    (turn-on-haskell-indentation))
-(setq c-default-style "linux"
-          c-basic-offset 4)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+
+;; C 
+(setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
   (helm-gtags-mode)
@@ -156,29 +167,9 @@ If the new path's directories does not exist, create them."
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
 
-;(add-hook 'haskell-mode-hook 'common-hooks)
-;(add-hook 'haskell-mode-hook 'haskell-hooks)
-
-(add-hook 'tuareg-mode-hook 'common-hooks)
-(add-hook 'tuareg-mode-hook 'ocaml-hooks)
-
-(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
-(require 'merlin)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'tuareg-mode-hook 'common-hooks)
-(setq merlin-use-auto-complete-mode t)
-(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
-(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
-
-(add-hook 'markdown-mode-hook 'turn-on-pandoc)
-
+;; *****************************************************************************
 ;; Global Keybindings 
 ;; *****************************************************************************
-;(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
-
-;; replace C-x f and C-x b with some nicer alternatives
 (global-set-key (kbd "M-f") 'ido-find-file)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
 (global-set-key (kbd "M-#") 'helm-mini)
@@ -194,7 +185,6 @@ If the new path's directories does not exist, create them."
 
 ;; window stuff
 ;(global-set-key (kbd "M-" 'split-window-below))
-(global-set-key (kbd "M-+") 'enlarge-window)
 (global-set-key (kbd "M-+") 'enlarge-window)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-0") 'compile)
@@ -213,11 +203,5 @@ If the new path's directories does not exist, create them."
  ;; If there is more than one, they won't work right.
  )
 
-(setq geiser-active-implementations '(racket))
-(ac-define-source geiser
- '((candidates . (lambda () (append (geiser-completion--complete ac-prefix nil) (geiser-completion--complete ac-prefix t))))))
-(add-hook 'scheme-mode-hook (lambda () (setq ac-sources (append ac-sources '(ac-source-geiser)))))
 
 (set-face-attribute 'default nil :height 180)
-
-(require 'auto-complete-clang)
