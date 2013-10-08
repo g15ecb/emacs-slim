@@ -68,12 +68,12 @@ If the new path's directories does not exist, create them."
   (package-refresh-contents))
 
 (defvar my-packages '(magit 
-                      autopair
-		      browse-kill-ring
+                      ;; autopair
+		      ;; browse-kill-ring
 		      perspective
-		      color-theme-solarized
 		      rainbow-delimiters
 		      d-mode
+		      google-this
 		      helm
 		      helm-gtags
                       auto-complete
@@ -140,11 +140,6 @@ If the new path's directories does not exist, create them."
                                 ("\\.m$" . mercury-mode))
 			      auto-mode-alist))
 
-;; C++ and clang: not elpa.
-(add-to-list 'load-path "~/.emacs.d/no-elpa/google-c-style")
-;; You can get the following from tools in clang src
-(add-to-list 'load-path "~/.emacs.d/no-elpa/clang-format")
-
 ;; OCaml: not elpa. Install via opam: merlin, ocp-indent.
 (add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
 (require 'merlin)
@@ -174,21 +169,16 @@ If the new path's directories does not exist, create them."
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 
 ;; C 
-;; https://earthserver.com/Setting_up_a_modern_C%2B%2B_development_environment_on_Linux_with_Clang_and_Emacs#Enable_.22google_this.22_functionality_for_emacs
-(defun clang-format-before-save ()
-  (interactive)
-  (when (or (eq major-mode 'c++-mode) (eq major-mode 'c-mode)) (clang-format-buffer)))
+(setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
   (helm-gtags-mode)
-  (google-set-c-style)
-  (google-make-newline-indent)
+  (local-set-key (kbd "RET") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
 )
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
-(add-hook 'before-save-hook 'clang-format-before-save) ; only for relevant buffer types
 
 ;; Prolog
 (defun prolog-hooks()
