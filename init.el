@@ -140,6 +140,8 @@ If the new path's directories does not exist, create them."
                                 ("\\.m$" . mercury-mode))
 			      auto-mode-alist))
 
+(add-to-list 'load-path "~/.emacs.d/no-elpa/google-c-style")
+
 ;; OCaml: not elpa. Install via opam: merlin, ocp-indent.
 (add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
 (require 'merlin)
@@ -169,11 +171,11 @@ If the new path's directories does not exist, create them."
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 
 ;; C 
-(setq c-default-style "linux" c-basic-offset 4)
-
 (defun c-hooks()
   (helm-gtags-mode)
-  (local-set-key (kbd "RET") 'newline-and-indent)
+  ;(local-set-key (kbd "RET") 'newline-and-indent)
+  (google-set-c-style)
+  (google-make-newline-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
 )
 
