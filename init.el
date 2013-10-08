@@ -1,10 +1,92 @@
+ls
+clear
+ls
+rm -r Music/ Pictures/ Public/ Templates/ Videos/
+ls
+clear
+ls
+cd Downloads/
+ls
+clear
+ls
+rm -r *
+clear
+ls
+ls
+clear
+ls
+cd ..
+ls
+cd Documents/
+ls
+ls
+cd Downloads/
+ls
+cd ..
+ls
+cd Desktop/
+ls
+rm url 
+ls
+cd  ~/Documents/
+ls
+cd ~/Downloads/
+ls
+mv * ~/Desktop/
+ls
+cd ~/Desktop/
+ls
+evince book.pdf &
+ls
+cd ~/Downloads/
+ls
+mv ocaml-4.01-refman.pdf ~/Desktop/
+ls
+mkdir ~/Documents/pl
+cd ~/Documents/pl/
+ls
+cp ~/.ssh/id_rsa.pub ~/Desktop
+cd ~/Desktop/
+ls
+mv id_rsa.pub id_rsa.pub2
+gtags
+ls
+cd ~/Repos/
+ls
+ls
+svn checkout https://svnpa1.hpl.hp.com/svnroot/multicore/Atlas
+cd ~
+ls
+cd Papers/
+ls
+cd ..
+ls
+cd Repos/
+ls
+cd ..
+cd Work/
+ls
+cd ~/Docs/
+ls
+rake
+cd ..
+rake1.9.1 
+rake1.9.1 
+rake1.9.1 
+rake1.9.1 
+opam update
+opam upgrade
+clear
+ls
 ;; Granville Barnett's Emacs Config
 ;; granvillebarnett@gmail.com
 
 ;; Prerequisites:
-;; - LaTeX 
-;; - AucTeX
 ;; - OCaml (utop + merlin)
+
+;; Note: not all packages can be found in elpa, e.g. AucTeX and Prolog (from
+;; Bruda). These packages live in no-elpa. Also, for OCaml. opam installs the
+;; relevant Emacs packages.
 
 ;; Structure
 ;; - GUI + Basics 
@@ -109,9 +191,9 @@ If the new path's directories does not exist, create them."
 (ac-config-default)
 (setq ac-auto-show-menu 0.)		; show immediately
 
-;; AucTeX
-(add-to-list 'load-path "~/.emacs.d/auctex-11.87")
-(add-to-list 'load-path "~/.emacs.d/auctex-11.87/preview")
+;; AucTeX: not elpa. 
+(add-to-list 'load-path "~/.emacs.d/no-elpa/auctex")
+(add-to-list 'load-path "~/.emacs.d/no-elpa/auctex/preview")
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 (setq TeX-auto-save t)                  
@@ -127,7 +209,18 @@ If the new path's directories does not exist, create them."
 (setq reftex-cite-format 'natbib)
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
 
-;; OCaml
+;; Prolog: not elpa.
+;; http://bruda.ca/emacs/prolog_mode_for_emacs
+(add-to-list 'load-path "~/.emacs.d/no-elpa/prolog-bruda")
+(autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
+(autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
+(autoload 'mercury-mode "prolog" "Major mode for editing Mercury programs." t)
+(setq prolog-system 'swi)
+(setq auto-mode-alist (append '(("\\.pl$" . prolog-mode)
+                                ("\\.m$" . mercury-mode))
+			      auto-mode-alist))
+
+;; OCaml: not elpa. Install via opam: merlin, ocp-indent.
 (add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
 (require 'merlin)
 (setq merlin-use-auto-complete-mode t)
