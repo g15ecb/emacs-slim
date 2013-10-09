@@ -194,6 +194,8 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-f") 'ido-find-file)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
 (global-set-key (kbd "M-#") 'helm-mini)
+(global-set-key (kbd "M-?") 'google-this)
+
 
 ;; I prefer this with ac
 (global-set-key (kbd "M--") 'ac-isearch)
