@@ -68,7 +68,7 @@ If the new path's directories does not exist, create them."
   (package-refresh-contents))
 
 (defvar my-packages '(magit 
-                      ;; autopair
+                      autopair
 		      ;; browse-kill-ring
 		      perspective
 		      rainbow-delimiters
@@ -77,7 +77,7 @@ If the new path's directories does not exist, create them."
 		      helm
 		      helm-gtags
                       auto-complete
-		      smartparens
+		      ;; smartparens
                       tangotango-theme
 		      tuareg
 		      evil)
@@ -152,7 +152,7 @@ If the new path's directories does not exist, create them."
 ;; Hooks 
 ;; *****************************************************************************
 (defun common-hooks() 
-  (smartparens-mode)
+  (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
