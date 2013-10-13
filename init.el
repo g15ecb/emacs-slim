@@ -3,6 +3,7 @@
 
 ;; Prerequisites:
 ;; - OCaml (utop + merlin)
+;; - Clang Async (https://github.com/Golevka/emacs-clang-complete-async)
 
 ;; Note: not all packages can be found in elpa, e.g. AucTeX and Prolog (from
 ;; Bruda). These packages live in no-elpa. Also, for OCaml. opam installs the
@@ -71,12 +72,15 @@ If the new path's directories does not exist, create them."
                       autopair
 		      perspective
 		      rainbow-delimiters
-		      ;; rust-mode
+		      rust-mode
+		      yasnippet-bundle
+		      auto-complete-clang-async
 		      d-mode
 		      google-this
 		      helm
 		      helm-gtags
                       auto-complete
+		      solarized-theme
                       tangotango-theme
 		      tuareg
 		      evil)
@@ -90,7 +94,7 @@ If the new path's directories does not exist, create them."
 ;; *****************************************************************************
 ;; Package Configuration 
 ;; *****************************************************************************
-(require 'tangotango-theme)
+(require 'solarized-dark-theme)
 
 (evil-mode)
 (helm-mode 1)
@@ -101,8 +105,6 @@ If the new path's directories does not exist, create them."
 (persp-switch "3")
 (persp-switch "4")
 (persp-switch "1")
-
-(browse-kill-ring-default-keybindings) 	; m-y to browse kill ring
 
 ;; autocomplete 
 (require 'auto-complete-config)
@@ -140,11 +142,11 @@ If the new path's directories does not exist, create them."
 			      auto-mode-alist))
 
 ;; OCaml: not elpa. Install via opam: merlin, ocp-indent.
-(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
-(require 'merlin)
-(setq merlin-use-auto-complete-mode t)
-(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+;`(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
+;`(require 'merlin)
+;`(setq merlin-use-auto-complete-mode t)
+;`(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+;`(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
 
 ;; *****************************************************************************
@@ -178,6 +180,23 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
+
+;; clang async stuff
+;; https://github.com/Golevka/emacs-clang-complete-async
+(require 'auto-complete-clang-async)
+
+(defun ac-cc-mode-setup ()
+  (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
+  (setq ac-sources '(ac-source-clang-async))
+  (ac-clang-launch-completion-process)
+)
+
+(defun my-ac-config ()
+  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+  (global-auto-complete-mode t))
+
+(my-ac-config)
 
 ;; Prolog
 (defun prolog-hooks()
@@ -216,8 +235,9 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ac-clang-cflags (quote ("-std=c++11")))
  '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode markdown-mode)))
- '(custom-safe-themes (quote ("b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default))))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
