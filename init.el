@@ -76,6 +76,7 @@ If the new path's directories does not exist, create them."
 		      yasnippet-bundle
 		      auto-complete-clang-async
 		      d-mode
+		      haskell-mode
 		      google-this
 		      helm
 		      helm-gtags
@@ -148,7 +149,13 @@ If the new path's directories does not exist, create them."
 ;`(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 ;`(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
+;; clang-format
+;; (load "~/.emacs.d/no-elpa/clang-format/clang-format.el")
+;; (defun clang-format-before-save ()
+;;   (interactive)
+;;   (when (or (eq major-mode 'c++-mode) (eq major-mode 'c-mode)) (clang-format-buffer)))
 
+;; (add-hook 'before-save-hook 'clang-format-before-save)
 ;; *****************************************************************************
 ;; Hooks 
 ;; *****************************************************************************
@@ -169,6 +176,13 @@ If the new path's directories does not exist, create them."
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 
+(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
+(add-hook 'haskell-mode-hook 'common-hooks)
+(defun haskell-hooks()
+  (local-set-key (kbd "M-e") 'inferior-haskell-load-file))
+(add-hook 'haskell-mode-hook 'haskell-hooks)
+
 ;; C 
 (setq c-default-style "linux" c-basic-offset 4)
 
@@ -183,20 +197,20 @@ If the new path's directories does not exist, create them."
 
 ;; clang async stuff
 ;; https://github.com/Golevka/emacs-clang-complete-async
-(require 'auto-complete-clang-async)
+;; (require 'auto-complete-clang-async)
 
-(defun ac-cc-mode-setup ()
-  (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
-  (setq ac-sources '(ac-source-clang-async))
-  (ac-clang-launch-completion-process)
-)
+;; (defun ac-cc-mode-setup ()
+;;   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
+;;   (setq ac-sources '(ac-source-clang-async))
+;;   (ac-clang-launch-completion-process)
+;; )
 
-(defun my-ac-config ()
-  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
-  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-  (global-auto-complete-mode t))
+;; (defun my-ac-config ()
+;;   (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+;;   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+;;   (global-auto-complete-mode t))
 
-(my-ac-config)
+;; (my-ac-config)
 
 ;; Prolog
 (defun prolog-hooks()
