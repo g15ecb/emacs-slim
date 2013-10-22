@@ -83,7 +83,8 @@ If the new path's directories does not exist, create them."
                       auto-complete
 		      solarized-theme
                       tangotango-theme
-		      tuareg
+		      sml-mode
+		      ;; tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
 
@@ -164,17 +165,24 @@ If the new path's directories does not exist, create them."
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
-;; Ocaml
-(defun ocaml-hooks()
-  (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
-  (local-set-key (kbd "M-/") 'utop-edit-complete))
+;; SML
+(defun sml-hooks()
+  (local-set-key (kbd "M-e") 'sml-send-buffer))
 
-(add-hook 'tuareg-mode-hook 'common-hooks)
-(add-hook 'tuareg-mode-hook 'ocaml-hooks)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'tuareg-mode-hook 'common-hooks)
-(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'sml-mode-hook 'common-hooks)
+(add-hook 'inferior-sml-mode-hook 'common-hooks)
+
+;; Ocaml
+;; (defun ocaml-hooks()
+;;   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+;;   (local-set-key (kbd "M-/") 'utop-edit-complete))
+
+;; (add-hook 'tuareg-mode-hook 'common-hooks)
+;; (add-hook 'tuareg-mode-hook 'ocaml-hooks)
+;; (add-hook 'tuareg-mode-hook 'merlin-mode)
+;; (add-hook 'tuareg-mode-hook 'common-hooks)
+;; (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;; (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
@@ -250,8 +258,9 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-clang-cflags (quote ("-std=c++11")))
- '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode markdown-mode)))
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default))))
+ '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode markdown-mode sml-mode inferior-sml-mode)))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
+ '(sml-program-name "poly"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -261,3 +270,15 @@ If the new path's directories does not exist, create them."
 
 
 (set-face-attribute 'default nil :height 180)
+
+(setq
+ python-shell-interpreter "ipython3"
+ python-shell-interpreter-args ""
+ python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+ python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+ python-shell-completion-setup-code
+   "from IPython.core.completerlib import module_completion"
+ python-shell-completion-module-string-code
+   "';'.join(module_completion('''%s'''))\n"
+ python-shell-completion-string-code
+   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
