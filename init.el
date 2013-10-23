@@ -84,7 +84,6 @@ If the new path's directories does not exist, create them."
 		      solarized-theme
                       tangotango-theme
 		      sml-mode
-		      nimrod-mode
 		      ;; tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
@@ -165,9 +164,6 @@ If the new path's directories does not exist, create them."
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
-
-;; nimrod
-(add-hook 'nimrod-mode 'common-hooks)
 
 ;; SML
 (defun sml-hooks()
@@ -262,7 +258,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-clang-cflags (quote ("-std=c++11")))
- '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode markdown-mode sml-mode inferior-sml-mode nimrod-mode)))
+ '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode markdown-mode sml-mode inferior-sml-mode)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
  '(sml-program-name "poly"))
 (custom-set-faces
