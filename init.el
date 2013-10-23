@@ -166,6 +166,7 @@ If the new path's directories does not exist, create them."
   (rainbow-delimiters-mode))
 
 ;; SML
+;; (add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\)\\'" . sml-mode))
 (defun sml-hooks()
   (local-set-key (kbd "M-e") 'sml-send-buffer))
 
