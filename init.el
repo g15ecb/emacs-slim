@@ -81,6 +81,7 @@ If the new path's directories does not exist, create them."
 		      helm-gtags
                       auto-complete
 		      solarized-theme
+		      scala-mode2
 		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
