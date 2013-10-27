@@ -3,7 +3,6 @@
 
 ;; Prerequisites:
 ;; - OCaml (utop + merlin)
-;; - Clang Async (https://github.com/Golevka/emacs-clang-complete-async)
 
 ;; Note: not all packages can be found in elpa, e.g. AucTeX and Prolog (from
 ;; Bruda). These packages live in no-elpa. Also, for OCaml. opam installs the
@@ -82,9 +81,7 @@ If the new path's directories does not exist, create them."
 		      helm-gtags
                       auto-complete
 		      solarized-theme
-                      tangotango-theme
-		      sml-mode
-		      ;; tuareg
+		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
 
@@ -144,11 +141,11 @@ If the new path's directories does not exist, create them."
 			      auto-mode-alist))
 
 ;; OCaml: not elpa. Install via opam: merlin, ocp-indent.
-;`(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
-;`(require 'merlin)
-;`(setq merlin-use-auto-complete-mode t)
-;`(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;`(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
+(require 'merlin)
+(setq merlin-use-auto-complete-mode t)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
 ;; clang-format
 ;; (load "~/.emacs.d/no-elpa/clang-format/clang-format.el")
@@ -174,16 +171,16 @@ If the new path's directories does not exist, create them."
 (add-hook 'inferior-sml-mode-hook 'common-hooks)
 
 ;; Ocaml
-;; (defun ocaml-hooks()
-;;   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
-;;   (local-set-key (kbd "M-/") 'utop-edit-complete))
+ (defun ocaml-hooks()
+   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+   (local-set-key (kbd "M-/") 'utop-edit-complete))
 
-;; (add-hook 'tuareg-mode-hook 'common-hooks)
-;; (add-hook 'tuareg-mode-hook 'ocaml-hooks)
-;; (add-hook 'tuareg-mode-hook 'merlin-mode)
-;; (add-hook 'tuareg-mode-hook 'common-hooks)
-;; (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-;; (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
@@ -269,17 +266,6 @@ If the new path's directories does not exist, create them."
  ;; If there is more than one, they won't work right.
  )
 
-
-(set-face-attribute 'default nil :height 180)
-
-(setq
- python-shell-interpreter "ipython3"
- python-shell-interpreter-args ""
- python-shell-prompt-regexp "In \\[[0-9]+\\]: "
- python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
- python-shell-completion-setup-code
-   "from IPython.core.completerlib import module_completion"
- python-shell-completion-module-string-code
-   "';'.join(module_completion('''%s'''))\n"
- python-shell-completion-string-code
-   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+(setq mac-option-modifier 'super)
+(setq mac-command-modifier 'meta)
+(set-face-attribute 'default nil :height 200)
