@@ -83,7 +83,7 @@ If the new path's directories does not exist, create them."
                       auto-complete
 		      solarized-theme
 		      sml-mode
-		      scala-mode2
+		      ;;scala-mode2
 		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
@@ -162,6 +162,7 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "M-e") 'sml-prog-proc-send-buffer))
 
 (add-hook 'sml-mode-hook 'common-hooks)
+(add-hook 'sml-mode-hook 'sml-hooks)
 (add-hook 'inferior-sml-mode-hook 'common-hooks)
 
 ;; Ocaml
