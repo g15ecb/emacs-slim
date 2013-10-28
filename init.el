@@ -83,8 +83,9 @@ If the new path's directories does not exist, create them."
                       auto-complete
 		      solarized-theme
                       tangotango-theme
+		      nimrod-mode
 		      sml-mode
-		      ;; tuareg
+		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
 
@@ -164,6 +165,10 @@ If the new path's directories does not exist, create them."
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
+
+;; Nimrod
+(require 'nimrod-mode)
+(add-hook 'nimrod-mode-hook 'common-hooks)
 
 ;; SML
 ;; (add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\)\\'" . sml-mode))
