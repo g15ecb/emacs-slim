@@ -3,11 +3,11 @@
 
 ;; Prerequisites:
 ;; - OCaml (utop + merlin)
-;; - Clang Async (https://github.com/Golevka/emacs-clang-complete-async)
 
 ;; Note: not all packages can be found in elpa, e.g. AucTeX and Prolog (from
-;; Bruda). These packages live in no-elpa. Also, for OCaml. opam installs the
-;; relevant Emacs packages.
+;; Bruda). These packages live in no-elpa. Also, for OCaml opam installs the
+;; relevant Emacs packages, which are then loaded from their opam-specific
+;; paths. 
 
 ;; Structure
 ;; - GUI + Basics 
@@ -82,9 +82,8 @@ If the new path's directories does not exist, create them."
 		      helm-gtags
                       auto-complete
 		      solarized-theme
-                      tangotango-theme
-		      nimrod-mode
 		      sml-mode
+		      scala-mode2
 		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
@@ -92,7 +91,6 @@ If the new path's directories does not exist, create them."
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
 
 ;; *****************************************************************************
 ;; Package Configuration 
@@ -145,19 +143,12 @@ If the new path's directories does not exist, create them."
 			      auto-mode-alist))
 
 ;; OCaml: not elpa. Install via opam: merlin, ocp-indent.
-;`(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
-;`(require 'merlin)
-;`(setq merlin-use-auto-complete-mode t)
-;`(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;`(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
+(require 'merlin)
+(setq merlin-use-auto-complete-mode t)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
 
-;; clang-format
-;; (load "~/.emacs.d/no-elpa/clang-format/clang-format.el")
-;; (defun clang-format-before-save ()
-;;   (interactive)
-;;   (when (or (eq major-mode 'c++-mode) (eq major-mode 'c-mode)) (clang-format-buffer)))
-
-;; (add-hook 'before-save-hook 'clang-format-before-save)
 ;; *****************************************************************************
 ;; Hooks 
 ;; *****************************************************************************
@@ -166,33 +157,30 @@ If the new path's directories does not exist, create them."
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
-;; Nimrod
-(require 'nimrod-mode)
-(add-hook 'nimrod-mode-hook 'common-hooks)
-
 ;; SML
-;; (add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\)\\'" . sml-mode))
 (defun sml-hooks()
-  (local-set-key (kbd "M-e") 'sml-send-buffer))
+  (local-set-key (kbd "M-e") 'sml-prog-proc-send-buffer))
 
 (add-hook 'sml-mode-hook 'common-hooks)
 (add-hook 'inferior-sml-mode-hook 'common-hooks)
 
 ;; Ocaml
-;; (defun ocaml-hooks()
-;;   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
-;;   (local-set-key (kbd "M-/") 'utop-edit-complete))
+ (defun ocaml-hooks()
+   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+   (local-set-key (kbd "M-/") 'utop-edit-complete))
 
-;; (add-hook 'tuareg-mode-hook 'common-hooks)
-;; (add-hook 'tuareg-mode-hook 'ocaml-hooks)
-;; (add-hook 'tuareg-mode-hook 'merlin-mode)
-;; (add-hook 'tuareg-mode-hook 'common-hooks)
-;; (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-;; (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 
+;; Haskell
 (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
 (add-hook 'haskell-mode-hook 'common-hooks)
+
 (defun haskell-hooks()
   (local-set-key (kbd "M-e") 'inferior-haskell-load-file))
 (add-hook 'haskell-mode-hook 'haskell-hooks)
@@ -208,23 +196,6 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
-
-;; clang async stuff
-;; https://github.com/Golevka/emacs-clang-complete-async
-;; (require 'auto-complete-clang-async)
-
-;; (defun ac-cc-mode-setup ()
-;;   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
-;;   (setq ac-sources '(ac-source-clang-async))
-;;   (ac-clang-launch-completion-process)
-;; )
-
-;; (defun my-ac-config ()
-;;   (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
-;;   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-;;   (global-auto-complete-mode t))
-
-;; (my-ac-config)
 
 ;; Prolog
 (defun prolog-hooks()
@@ -242,8 +213,6 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-#") 'helm-mini)
 (global-set-key (kbd "M-?") 'google-this)
 
-
-;; I prefer this with ac
 (global-set-key (kbd "M--") 'ac-isearch)
 
 (global-set-key (kbd "M-4") 'persp-switch)
@@ -263,10 +232,9 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-clang-cflags (quote ("-std=c++11")))
  '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode markdown-mode sml-mode inferior-sml-mode)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
- '(sml-program-name "poly"))
+ '(sml-program-name "sml"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -274,17 +242,7 @@ If the new path's directories does not exist, create them."
  ;; If there is more than one, they won't work right.
  )
 
-
+;; bits that change across machines....
+;;(setq mac-option-modifier 'super)
+;;(setq mac-command-modifier 'meta)
 (set-face-attribute 'default nil :height 180)
-
-(setq
- python-shell-interpreter "ipython3"
- python-shell-interpreter-args ""
- python-shell-prompt-regexp "In \\[[0-9]+\\]: "
- python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
- python-shell-completion-setup-code
-   "from IPython.core.completerlib import module_completion"
- python-shell-completion-module-string-code
-   "';'.join(module_completion('''%s'''))\n"
- python-shell-completion-string-code
-   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
