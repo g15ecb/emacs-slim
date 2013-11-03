@@ -73,18 +73,16 @@ If the new path's directories does not exist, create them."
 		      perspective
 		      rainbow-delimiters
 		      rust-mode
-		      ;; yasnippet-bundle
-		      ;; auto-complete-clang-async
 		      d-mode
 		      haskell-mode
 		      google-this
 		      helm
-		      ;; helm-gtags
+		      helm-gtags
                       auto-complete
 		      solarized-theme
 		      sml-mode
-		      ;;scala-mode2
-		      ;; tuareg
+		      scala-mode2
+		      tuareg
 		      evil)
   "A list of packages to ensure are installed at launch.")
 
