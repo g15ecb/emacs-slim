@@ -186,6 +186,9 @@ If the new path's directories does not exist, create them."
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 
 ;; Erlang
+(add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
+(require 'edts-start)
+
 (add-hook 'erlang-mode-hook 'common-hooks)
 
 (defun erlang-hooks()
