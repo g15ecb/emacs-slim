@@ -2,7 +2,7 @@
 ;; granvillebarnett@gmail.com
 
 ;; Prerequisites:
-;; - OCaml (utop + merlin)
+;; - OCaml (utop + merlin + ocp-indent)
 
 ;; Note: not all packages can be found in elpa, e.g. AucTeX and Prolog (from
 ;; Bruda). These packages live in no-elpa. Also, for OCaml opam installs the
@@ -142,12 +142,12 @@ If the new path's directories does not exist, create them."
                                 ("\\.m$" . mercury-mode))
 			      auto-mode-alist))
 
-;; OCaml: not elpa. Install via opam: merlin, ocp-indent.
-(add-to-list 'load-path "~/.opam/4.00.1/share/emacs/site-lisp/")
+;; OCaml: not elpa. Install via opam: merlin, ocp-indent, utop
+(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
 (require 'merlin)
 (setq merlin-use-auto-complete-mode t)
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-(load-file "~/.opam/4.00.1/share/typerex/ocp-indent/ocp-indent.el")
+;(load-file "~/.opam/4.01.0/share/typerex/ocp-indent/ocp-indent.el")
 
 ;; *****************************************************************************
 ;; Hooks 
@@ -166,9 +166,15 @@ If the new path's directories does not exist, create them."
 (add-hook 'inferior-sml-mode-hook 'common-hooks)
 
 ;; Ocaml
- (defun ocaml-hooks()
-   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
-   (local-set-key (kbd "M-/") 'utop-edit-complete))
+(defun ocaml-hooks()
+  (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+  (local-set-key (kbd "M-/") 'utop-edit-complete))
+
+(defun repl-hooks()
+  (autopair-mode)
+  (rainbow-delimiters-mode))
+
+(add-hook 'utop-mode-hook 'repl-hooks)
 
 (add-hook 'tuareg-mode-hook 'common-hooks)
 (add-hook 'tuareg-mode-hook 'ocaml-hooks)
@@ -187,8 +193,8 @@ If the new path's directories does not exist, create them."
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 
 ;; Erlang
-(add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
-(require 'edts-start)
+;(add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
+;(require 'edts-start)
 
 (add-hook 'erlang-mode-hook 'common-hooks)
 
@@ -266,7 +272,7 @@ If the new path's directories does not exist, create them."
 ;; bits that change across machines....
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-(set-face-attribute 'default nil :height 200)
+(set-face-attribute 'default nil :height 160)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 
