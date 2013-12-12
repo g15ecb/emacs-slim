@@ -4,11 +4,6 @@
 ;; Prerequisites:
 ;; - OCaml (utop + merlin + ocp-indent)
 
-;; Note: not all packages can be found in elpa, e.g. AucTeX and Prolog (from
-;; Bruda). These packages live in no-elpa. Also, for OCaml opam installs the
-;; relevant Emacs packages, which are then loaded from their opam-specific
-;; paths. 
-
 ;; Structure
 ;; - GUI + Basics 
 ;; - Elpa 
@@ -72,19 +67,13 @@ If the new path's directories does not exist, create them."
                       autopair
 		      perspective
 		      rainbow-delimiters
-		      rust-mode
-		      d-mode
 		      haskell-mode
 		      google-this
 		      helm
 		      helm-gtags
                       auto-complete
 		      solarized-theme
-		      sml-mode
-		      erlang
-		      scala-mode2
 		      tuareg
-		      fsharp-mode
 		      evil)
   "A list of packages to ensure are installed at launch.")
 
@@ -131,23 +120,12 @@ If the new path's directories does not exist, create them."
 (setq reftex-cite-format 'natbib)
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
 
-;; Prolog: not elpa.
-;; http://bruda.ca/emacs/prolog_mode_for_emacs
-(add-to-list 'load-path "~/.emacs.d/no-elpa/prolog-bruda")
-(autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
-(autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
-(autoload 'mercury-mode "prolog" "Major mode for editing Mercury programs." t)
-(setq prolog-system 'swi)
-(setq auto-mode-alist (append '(("\\.pl$" . prolog-mode)
-                                ("\\.m$" . mercury-mode))
-			      auto-mode-alist))
-
 ;; OCaml: not elpa. Install via opam: merlin, ocp-indent, utop
 (add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
 (require 'merlin)
 (setq merlin-use-auto-complete-mode t)
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;(load-file "~/.opam/4.01.0/share/typerex/ocp-indent/ocp-indent.el")
+(load-file "~/.opam/4.01.0/share/emacs/site-lisp/ocp-indent.el")
 
 ;; *****************************************************************************
 ;; Hooks 
@@ -157,25 +135,21 @@ If the new path's directories does not exist, create them."
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
-;; SML
-(defun sml-hooks()
-  (local-set-key (kbd "M-e") 'sml-prog-proc-send-buffer))
-
-(add-hook 'sml-mode-hook 'common-hooks)
-(add-hook 'sml-mode-hook 'sml-hooks)
-(add-hook 'inferior-sml-mode-hook 'common-hooks)
-
 ;; Ocaml
+(defun ocp-indent-buffer ()
+  (interactive nil)
+  (ocp-indent-region (point-min) (point-max)))
+
 (defun ocaml-hooks()
   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
-  (local-set-key (kbd "M-/") 'utop-edit-complete))
+  (local-set-key (kbd "M-/") 'utop-edit-complete)
+  (local-set-key (lbd "M-q") 'ocp-indent-buffer))
 
 (defun repl-hooks()
   (autopair-mode)
   (rainbow-delimiters-mode))
 
 (add-hook 'utop-mode-hook 'repl-hooks)
-
 (add-hook 'tuareg-mode-hook 'common-hooks)
 (add-hook 'tuareg-mode-hook 'ocaml-hooks)
 (add-hook 'tuareg-mode-hook 'merlin-mode)
@@ -192,16 +166,6 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "M-e") 'inferior-haskell-load-file))
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 
-;; Erlang
-;(add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
-;(require 'edts-start)
-
-(add-hook 'erlang-mode-hook 'common-hooks)
-
-(defun erlang-hooks()
-  (local-set-key (kbd "M-e") 'erlang-compile))
-(add-hook 'erlang-mode-hook 'haskell-hooks)
-
 ;; C 
 (setq c-default-style "linux" c-basic-offset 4)
 
@@ -214,36 +178,40 @@ If the new path's directories does not exist, create them."
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
 
-;; Prolog
-(defun prolog-hooks()
-  (local-set-key (kbd "M-e") 'prolog-consult-buffer))
-
-(add-hook 'prolog-mode-hook 'common-hooks)
-(add-hook 'prolog-mode-hook 'prolog-hooks)
-(add-hook 'prolog-inferior-mode-hook' common-hooks)
-
 ;; *****************************************************************************
 ;; Global Keybindings 
 ;; *****************************************************************************
+
+;; Buffers, info in general
 (global-set-key (kbd "M-f") 'ido-find-file)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
 (global-set-key (kbd "M-#") 'helm-mini)
 (global-set-key (kbd "M-?") 'google-this)
+(global-set-key (kbd "M-9") 'query-replace)
 
-(global-set-key (kbd "M--") 'ac-isearch)
-
+;; Packages...
 (global-set-key (kbd "M-4") 'persp-switch)
 (global-set-key (kbd "M-7") 'magit-status)
-(global-set-key (kbd "M-9") 'query-replace)
-(global-set-key (kbd "M-1") 'align-regexp)
-(global-set-key (kbd "M-2") 'ack)
+(global-set-key (kbd "M--") 'ac-isearch)
 
 ;; window stuff
-;(global-set-key (kbd "M-" 'split-window-below))
+(global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-+") 'enlarge-window)
 (global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-0") 'compile)
+(global-set-key (kbd "M-m") 'compile)
 
+
+;; Variable 
+;; -----------------------------------------------------------------------------
+(setq mac-option-modifier 'super)
+(setq mac-command-modifier 'meta)
+(set-face-attribute 'default nil :height 160)
+(global-unset-key (kbd "M-3"))
+(global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
+;; -----------------------------------------------------------------------------
+
+;; Junk
+;; -----------------------------------------------------------------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -258,32 +226,7 @@ If the new path's directories does not exist, create them."
  cperl-mode python-mode ruby-mode lua-mode ecmascript-mode
  javascript-mode js-mode js2-mode php-mode css-mode makefile-mode
  sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode
- ts-mode verilog-mode markdown-mode sml-mode erlang-shell-mode
- inferior-sml-mode)))
+ ts-mode verilog-mode markdown-mode sml-mode erlang-shell-mode inferior-sml-mode)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236"
- default))) '(sml-program-name "sml"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;; bits that change across machines....
-(setq mac-option-modifier 'super)
-(setq mac-command-modifier 'meta)
-(set-face-attribute 'default nil :height 160)
-(global-unset-key (kbd "M-3"))
-(global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
-
-(setq
- python-shell-interpreter "ipython3"
- python-shell-interpreter-args ""
- python-shell-prompt-regexp "In \\[[0-9]+\\]: "
- python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
- python-shell-completion-setup-code
-   "from IPython.core.completerlib import module_completion"
- python-shell-completion-module-string-code
-   "';'.join(module_completion('''%s'''))\n"
- python-shell-completion-string-code
-   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+ default))))
+;; -----------------------------------------------------------------------------
