@@ -68,6 +68,8 @@ If the new path's directories does not exist, create them."
 		      perspective
 		      rainbow-delimiters
 		      haskell-mode
+		      geiser
+		      ac-geiser
 		      google-this
 		      helm
 		      helm-gtags
@@ -177,6 +179,18 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
+
+;; Racket
+;; From, https://github.com/xiaohanyu/ac-geiser:
+(require 'ac-geiser)
+(add-hook 'geiser-mode-hook 'ac-geiser-setup)
+(add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'geiser-repl-mode))
+
+;; edts
+(add-to-list 'load-path "~/.emacs.d/edts")
+(require 'edts-start)
 
 ;; *****************************************************************************
 ;; Global Keybindings 
