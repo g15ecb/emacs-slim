@@ -70,6 +70,8 @@ If the new path's directories does not exist, create them."
 		      ac-geiser
 		      rainbow-delimiters
 		      haskell-mode
+		      geiser
+		      ac-geiser
 		      google-this
 		      helm
 		      ack-and-a-half
@@ -188,6 +190,10 @@ If the new path's directories does not exist, create them."
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'geiser-repl-mode))
 
+;; edts
+;;(add-to-list 'load-path "~/.emacs.d/edts")
+;;(require 'edts-start)
+
 ;; *****************************************************************************
 ;; Global Keybindings 
 ;; *****************************************************************************
@@ -216,7 +222,11 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
+<<<<<<< HEAD
 (set-face-attribute 'default nil :height 180)
+=======
+(set-face-attribute 'default nil :height 200)
+>>>>>>> 2f400fc9b3216197516f6916b7e53f96401d6abe
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
