@@ -66,10 +66,13 @@ If the new path's directories does not exist, create them."
 (defvar my-packages '(magit 
                       autopair
 		      perspective
+		      geiser
+		      ac-geiser
 		      rainbow-delimiters
 		      haskell-mode
 		      google-this
 		      helm
+		      ack-and-a-half
 		      helm-gtags
                       auto-complete
 		      solarized-theme
@@ -178,6 +181,13 @@ If the new path's directories does not exist, create them."
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
 
+;; Racket
+(require 'ac-geiser)
+(add-hook 'geiser-mode-hook 'ac-geiser-setup)
+(add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'geiser-repl-mode))
+
 ;; *****************************************************************************
 ;; Global Keybindings 
 ;; *****************************************************************************
@@ -188,6 +198,7 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-#") 'helm-mini)
 (global-set-key (kbd "M-?") 'google-this)
 (global-set-key (kbd "M-9") 'query-replace)
+(global-set-key (kbd "M-0") 'ack-and-a-half)
 
 ;; Packages...
 (global-set-key (kbd "M-4") 'persp-switch)
@@ -205,7 +216,7 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-(set-face-attribute 'default nil :height 160)
+(set-face-attribute 'default nil :height 180)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
