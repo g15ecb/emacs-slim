@@ -67,6 +67,7 @@ If the new path's directories does not exist, create them."
                       autopair
 		      perspective
 		      geiser
+		      rust-mode
 		      ac-geiser
 		      rainbow-delimiters
 		      haskell-mode
@@ -190,6 +191,7 @@ If the new path's directories does not exist, create them."
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'geiser-repl-mode))
 
+(add-hook 'rust-mode-hook 'common-hooks)
 ;; edts
 ;;(add-to-list 'load-path "~/.emacs.d/edts")
 ;;(require 'edts-start)
@@ -222,11 +224,7 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-<<<<<<< HEAD
 (set-face-attribute 'default nil :height 180)
-=======
-(set-face-attribute 'default nil :height 200)
->>>>>>> 2f400fc9b3216197516f6916b7e53f96401d6abe
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
@@ -247,7 +245,8 @@ If the new path's directories does not exist, create them."
  cperl-mode python-mode ruby-mode lua-mode ecmascript-mode
  javascript-mode js-mode js2-mode php-mode css-mode makefile-mode
  sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode
- ts-mode verilog-mode markdown-mode sml-mode erlang-shell-mode inferior-sml-mode)))
+ ts-mode verilog-mode markdown-mode sml-mode erlang-shell-mode
+ rust-mode inferior-sml-mode)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236"
  default))))
 ;; -----------------------------------------------------------------------------
