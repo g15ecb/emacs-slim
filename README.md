@@ -1,3 +1,1 @@
-My Emacs configuration. 
-
-Generally: functional languages and LaTeX.
+Generally functional languages (OCaml, Erlang, Haskell and Racket) and LaTeX.
