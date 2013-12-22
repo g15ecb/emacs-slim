@@ -66,13 +66,8 @@ If the new path's directories does not exist, create them."
 (defvar my-packages '(magit 
                       autopair
 		      perspective
-		      geiser
-		      rust-mode
-		      ac-geiser
 		      rainbow-delimiters
 		      haskell-mode
-		      geiser
-		      ac-geiser
 		      google-this
 		      helm
 		      ack-and-a-half
@@ -184,18 +179,6 @@ If the new path's directories does not exist, create them."
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
 
-;; Racket
-(require 'ac-geiser)
-(add-hook 'geiser-mode-hook 'ac-geiser-setup)
-(add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'geiser-repl-mode))
-
-(add-hook 'rust-mode-hook 'common-hooks)
-;; edts
-(add-to-list 'load-path "~/.emacs.d/edts")
-(require 'edts-start)
-
 ;; *****************************************************************************
 ;; Global Keybindings 
 ;; *****************************************************************************
@@ -224,7 +207,8 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-(set-face-attribute 'default nil :height 160)
+;;(set-face-attribute 'default nil :height 160)
+(set-face-attribute 'default nil :height 200)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
