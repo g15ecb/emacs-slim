@@ -69,9 +69,7 @@ If the new path's directories does not exist, create them."
 		      rainbow-delimiters
 		      haskell-mode
 		      google-this
-		      helm
 		      ack-and-a-half
-		      helm-gtags
                       auto-complete
 		      solarized-theme
 		      tuareg
@@ -88,7 +86,6 @@ If the new path's directories does not exist, create them."
 (require 'solarized-dark-theme)
 
 (evil-mode)
-(helm-mode 1)
 
 (persp-mode)
 (persp-rename "1")
@@ -171,7 +168,6 @@ If the new path's directories does not exist, create them."
 (setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
-  (helm-gtags-mode)
   (local-set-key (kbd "RET") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
 )
@@ -186,7 +182,6 @@ If the new path's directories does not exist, create them."
 ;; Buffers, info in general
 (global-set-key (kbd "M-f") 'ido-find-file)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
-(global-set-key (kbd "M-#") 'helm-mini)
 (global-set-key (kbd "M-?") 'google-this)
 (global-set-key (kbd "M-9") 'query-replace)
 (global-set-key (kbd "M-0") 'ack-and-a-half)
