@@ -169,6 +169,12 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "M-e") 'inferior-haskell-load-file))
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 
+;; F# hooks
+(defun fsharp-hooks()
+  (common-hooks)
+  (local-set-key (kbd "M-e") 'fsharp-eval-phrase))
+(add-hook 'fsharp-mode-hook 'fsharp-hooks)
+
 ;; C 
 (setq c-default-style "linux" c-basic-offset 4)
 
