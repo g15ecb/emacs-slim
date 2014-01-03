@@ -69,12 +69,11 @@ If the new path's directories does not exist, create them."
 		      rainbow-delimiters
 		      haskell-mode
 		      google-this
-		      helm
 		      ack-and-a-half
-		      helm-gtags
                       auto-complete
 		      solarized-theme
 		      tuareg
+		      sml-mode
 		      evil)
   "A list of packages to ensure are installed at launch.")
 
@@ -88,7 +87,6 @@ If the new path's directories does not exist, create them."
 (require 'solarized-dark-theme)
 
 (evil-mode)
-(helm-mode 1)
 
 (persp-mode)
 (persp-rename "1")
@@ -127,6 +125,10 @@ If the new path's directories does not exist, create them."
 (setq merlin-use-auto-complete-mode t)
 (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 (load-file "~/.opam/4.01.0/share/emacs/site-lisp/ocp-indent.el")
+
+;; f#
+(setq inferior-fsharp-program "/usr/bin/fsharpi --readline-")
+(setq fsharp-compiler "usr/bin/fsharpc")
 
 ;; *****************************************************************************
 ;; Hooks 
@@ -167,11 +169,16 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "M-e") 'inferior-haskell-load-file))
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 
+;; F# hooks
+(defun fsharp-hooks()
+  (common-hooks)
+  (local-set-key (kbd "M-e") 'fsharp-eval-phrase))
+(add-hook 'fsharp-mode-hook 'fsharp-hooks)
+
 ;; C 
 (setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
-  (helm-gtags-mode)
   (local-set-key (kbd "RET") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
 )
@@ -186,7 +193,6 @@ If the new path's directories does not exist, create them."
 ;; Buffers, info in general
 (global-set-key (kbd "M-f") 'ido-find-file)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
-(global-set-key (kbd "M-#") 'helm-mini)
 (global-set-key (kbd "M-?") 'google-this)
 (global-set-key (kbd "M-9") 'query-replace)
 (global-set-key (kbd "M-0") 'ack-and-a-half)
@@ -220,17 +226,13 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-modes (quote (emacs-lisp-mode prolog-mode
- prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode
- LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode
- c++-mode go-mode java-mode malabar-mode clojure-mode
- clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode
- coq-mode haskell-mode agda-mode agda2-mode perl-mode erlang-mode
- cperl-mode python-mode ruby-mode lua-mode ecmascript-mode
- javascript-mode js-mode js2-mode php-mode css-mode makefile-mode
- sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode
- ts-mode verilog-mode markdown-mode sml-mode erlang-shell-mode
- rust-mode inferior-sml-mode)))
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236"
- default))))
+ '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode fsharp-mode inferior-fsharp-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode erlang-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode verilog-mode markdown-mode sml-mode erlang-shell-mode rust-mode inferior-sml-mode)))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
+ '(sml-indent-level 2))
 ;; -----------------------------------------------------------------------------
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
