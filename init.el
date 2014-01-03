@@ -208,7 +208,7 @@ If the new path's directories does not exist, create them."
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
 ;;(set-face-attribute 'default nil :height 160)
-(set-face-attribute 'default nil :height 200)
+(set-face-attribute 'default nil :height 160)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
