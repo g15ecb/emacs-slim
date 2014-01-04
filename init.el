@@ -140,8 +140,12 @@ If the new path's directories does not exist, create them."
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
+(defun scala-hooks()
+  (local-set-key (kbd "M-e") 'sbt-send-region))
+
 ;; Scala
 (add-hook 'scala-mode-hook 'common-hooks)
+(add-hook 'scala-mode-hook 'scala-hooks)
 (add-hook 'sbt-mode-hook 'common-hooks)
 
 ;; Ocaml
