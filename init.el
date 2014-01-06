@@ -156,7 +156,10 @@ If the new path's directories does not exist, create them."
 (defun ocaml-hooks()
   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
   (local-set-key (kbd "M-/") 'utop-edit-complete)
-  (local-set-key (lbd "M-q") 'ocp-indent-buffer))
+  (local-set-key (lbd "M-q") 'ocp-indent-buffer)
+  (local-set-key (lbd "M-n") 'merlin-phrase-next)
+  (local-set-key (lbd "M-p") 'merlin-phrase-prev)
+  (local-set-key (lbd "M-o") 'merlin-locate))
 
 (defun repl-hooks()
   (autopair-mode)
@@ -236,20 +239,10 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-modes (quote (emacs-lisp-mode prolog-mode
- prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode
- fsharp-mode inferior-fsharp-mode LaTeX-mode
- lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode
- go-mode java-mode malabar-mode clojure-mode clojurescript-mode
- scala-mode sbt-mode scheme-mode ocaml-mode tuareg-mode coq-mode
- haskell-mode agda-mode agda2-mode perl-mode erlang-mode
- cperl-mode python-mode ruby-mode lua-mode ecmascript-mode
- javascript-mode js-mode js2-mode php-mode css-mode makefile-mode
- sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode
- ts-mode verilog-mode markdown-mode sml-mode erlang-shell-mode
- rust-mode inferior-sml-mode)))
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236"
- default))) '(sml-indent-level 2))
+ '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode bibtex-mode d-mode lisp-mode latex-mode fsharp-mode inferior-fsharp-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode sbt-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode erlang-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode verilog-mode markdown-mode sml-mode erlang-shell-mode rust-mode inferior-sml-mode)))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
+ '(merlin-report-warnings nil)
+ '(sml-indent-level 2))
 ;; -----------------------------------------------------------------------------
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
