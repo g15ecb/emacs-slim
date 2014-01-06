@@ -159,7 +159,8 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "M-q") 'ocp-indent-buffer)
   (local-set-key (kbd "M-n") 'merlin-phrase-next)
   (local-set-key (kbd "M-p") 'merlin-phrase-prev)
-  (local-set-key (kbd "M-o") 'merlin-locate))
+  (local-set-key (kbd "M-t") 'merlin-type-enclosing)
+  (local-set-key (kbd "M-l") 'merlin-locate))
 
 (defun repl-hooks()
   (autopair-mode)
