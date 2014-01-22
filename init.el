@@ -75,7 +75,6 @@ If the new path's directories does not exist, create them."
 		      ack-and-a-half
                       auto-complete
 		      solarized-theme
-		      ess
 		      tuareg
 		      scala-mode2
 		      sbt-mode
