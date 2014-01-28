@@ -70,6 +70,7 @@ If the new path's directories does not exist, create them."
 		      haskell-mode
 		      ghc
 		      flycheck
+		      auto-highlight-symbol
 		      flycheck-hdevtools
 		      google-this
 		      ack-and-a-half
@@ -132,6 +133,7 @@ If the new path's directories does not exist, create them."
 
 ;; *****************************************************************************
 (defun common-hooks() 
+  (auto-highlight-symbol-mode)
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
@@ -159,6 +161,7 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "M-l") 'merlin-locate))
 
 (defun repl-hooks()
+  (auto-highlight-symbol-mode)
   (autopair-mode)
   (rainbow-delimiters-mode))
 
