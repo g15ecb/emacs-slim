@@ -79,6 +79,8 @@ If the new path's directories does not exist, create them."
 		      tuareg
 		      scala-mode2
 		      sbt-mode
+		      go-mode
+		      go-autocomplete
 		      evil)
   "A list of packages to ensure are installed at launch.")
 
@@ -186,6 +188,10 @@ If the new path's directories does not exist, create them."
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 (add-hook 'inferior-haskell-mode-hook 'repl-hooks)
 
+;; Erlang
+(add-to-list 'load-path "~/.emacs.d/edts")
+(require 'edts-start)
+
 ;; C 
 (setq c-default-style "linux" c-basic-offset 4)
 
@@ -196,6 +202,11 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
+
+;; Go
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+(add-hook 'go-mode-hook 'common-hooks)
 
 ;; *****************************************************************************
 ;; Global Keybindings 
