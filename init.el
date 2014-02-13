@@ -68,6 +68,7 @@ If the new path's directories does not exist, create them."
 		      perspective
 		      rainbow-delimiters
 		      haskell-mode
+		      rust-mode
 		      ghc
 		      flycheck
 		      auto-highlight-symbol
@@ -147,6 +148,9 @@ If the new path's directories does not exist, create them."
 
 (defun scala-hooks()
   (local-set-key (kbd "M-e") 'sbt-send-region))
+
+;; rust
+(add-hook 'rust-mode-hook 'common-hooks)
 
 ;; Scala
 (add-hook 'scala-mode-hook 'common-hooks)
@@ -253,7 +257,7 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-modes (quote (emacs-lisp-mode prolog-mode prolog-inferior-mode inferior-haskell-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode sbt-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode erlang-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode verilog-mode markdown-mode)))
+ '(ac-modes (quote (emacs-lisp-mode rust-mode prolog-mode prolog-inferior-mode inferior-haskell-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode sbt-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode erlang-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode verilog-mode markdown-mode)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
  '(haskell-font-lock-symbols nil)
  '(haskell-stylish-on-save t)
