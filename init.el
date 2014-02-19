@@ -146,6 +146,29 @@ If the new path's directories does not exist, create them."
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
+;; org-mode
+(add-hook 'org-mode-hook 'common-hooks)
+
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+
+(add-to-list 'org-export-latex-classes '("article"
+               "\\documentclass{article}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(add-to-list 'org-export-latex-classes
+          '("koma-article"
+             "\\documentclass{scrartcl}"
+             ("\\section{%s}" . "\\section*{%s}")
+             ("\\subsection{%s}" . "\\subsection*{%s}")
+             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+             ("\\paragraph{%s}" . "\\paragraph*{%s}")
+             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
 (defun scala-hooks()
   (local-set-key (kbd "M-e") 'sbt-send-region))
 
