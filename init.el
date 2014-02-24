@@ -68,6 +68,8 @@ If the new path's directories does not exist, create them."
 		      perspective
 		      rainbow-delimiters
 		      haskell-mode
+		      helm
+		      helm-gtags
 		      rust-mode
 		      ghc
 		      flycheck
@@ -95,6 +97,7 @@ If the new path's directories does not exist, create them."
 (require 'solarized-dark-theme)
 
 (evil-mode)
+(helm-mode)
 
 (persp-mode)
 (persp-rename "1")
@@ -230,6 +233,7 @@ If the new path's directories does not exist, create them."
 (setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
+  (helm-gtags-mode)
   (local-set-key (kbd "RET") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
 )
