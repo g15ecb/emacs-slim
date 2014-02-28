@@ -234,7 +234,10 @@ If the new path's directories does not exist, create them."
 
 (defun c-hooks()
   (helm-gtags-mode)
-  (local-set-key (kbd "RET") 'newline-and-indent)
+  (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+  (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+  (local-set-key (kbd "ret") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
 )
 
