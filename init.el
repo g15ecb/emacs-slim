@@ -68,6 +68,8 @@ If the new path's directories does not exist, create them."
 		      perspective
 		      rainbow-delimiters
 		      haskell-mode
+		      pandoc-mode
+		      markdown-mode
 		      protobuf-mode
 		      tup-mode
 		      helm
@@ -124,6 +126,17 @@ If the new path's directories does not exist, create them."
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)           ;set up AUCTeX to deal with
                                         ;multiple file documents.
+
+;; Prolog
+(add-to-list 'load-path "~/.emacs.d/no-elpa/prolog")
+(autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
+(autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
+(autoload 'mercury-mode "prolog" "Major mode for editing Mercury programs." t)
+(setq prolog-system 'swi)
+(setq auto-mode-alist (append '(("\\.pl$" . prolog-mode)
+                                ("\\.m$" . mercury-mode))
+                               auto-mode-alist))
+
 (setq reftex-plug-into-AUCTeX t)
 
 (setq reftex-label-alist
@@ -151,6 +164,12 @@ If the new path's directories does not exist, create them."
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
+
+;; prolog
+(defun prolog-hooks() 
+  (local-set-key (kbd "M-e") 'prolog-consult-buffer))
+(add-hook 'prolog-mode-hook 'common-hooks)
+(add-hook 'prolog-mode-hook 'prolog-hooks)
 
 (defun python-hooks() 
   (local-set-key (kbd "M-e") 'python-shell-send-buffer))
