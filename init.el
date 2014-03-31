@@ -1,18 +1,9 @@
 ;; Granville Barnett's Emacs Config
 ;; granvillebarnett@gmail.com
 
-;; Prerequisites:
-;; - OCaml (utop + merlin + ocp-indent)
-
-;; Structure
-;; - GUI + Basics 
-;; - Elpa 
-;; - Package Configuration
-;; - Hooks
-;; - Global Keybindings
 
 ;; *****************************************************************************
-;; GUI + Basics
+;; Basics
 ;; *****************************************************************************
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
@@ -70,12 +61,8 @@ If the new path's directories does not exist, create them."
 		      haskell-mode
 		      pandoc-mode
 		      markdown-mode
-		      protobuf-mode
-		      tup-mode
 		      helm
-		      d-mode
 		      helm-gtags
-		      rust-mode
 		      ghc
 		      flycheck
 		      auto-highlight-symbol
@@ -85,10 +72,6 @@ If the new path's directories does not exist, create them."
                       auto-complete
 		      solarized-theme
 		      tuareg
-		      scala-mode2
-		      sbt-mode
-		      go-mode
-		      go-autocomplete
 		      evil)
   "A list of packages to ensure are installed at launch.")
 
@@ -96,8 +79,9 @@ If the new path's directories does not exist, create them."
   (when (not (package-installed-p p))
     (package-install p)))
 
+
 ;; *****************************************************************************
-;; Package Configuration 
+;; Configurations
 ;; *****************************************************************************
 (require 'solarized-dark-theme)
 
@@ -111,13 +95,14 @@ If the new path's directories does not exist, create them."
 (persp-switch "4")
 (persp-switch "1")
 
-;; autocomplete 
+;; Autocomplete ----------------------------------------------------------------
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 (setq ac-auto-show-menu 0.)		; show immediately
+;; -----------------------------------------------------------------------------
 
-;; AucTeX: not elpa. 
+;; AucTeX ----------------------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/no-elpa/auctex")
 (add-to-list 'load-path "~/.emacs.d/no-elpa/auctex/preview")
 (load "auctex.el" nil t t)
@@ -127,16 +112,6 @@ If the new path's directories does not exist, create them."
 (setq-default TeX-master nil)           ;set up AUCTeX to deal with
                                         ;multiple file documents.
 
-;; Prolog
-(add-to-list 'load-path "~/.emacs.d/no-elpa/prolog")
-(autoload 'run-prolog "prolog" "Start a Prolog sub-process." t)
-(autoload 'prolog-mode "prolog" "Major mode for editing Prolog programs." t)
-(autoload 'mercury-mode "prolog" "Major mode for editing Mercury programs." t)
-(setq prolog-system 'swi)
-(setq auto-mode-alist (append '(("\\.pl$" . prolog-mode)
-                                ("\\.m$" . mercury-mode))
-                               auto-mode-alist))
-
 (setq reftex-plug-into-AUCTeX t)
 
 (setq reftex-label-alist
@@ -145,85 +120,30 @@ If the new path's directories does not exist, create them."
 
 (setq reftex-cite-format 'natbib)
 (add-hook 'LaTeX-mode-hook 'reftex-mode)
+;; -----------------------------------------------------------------------------
 
-;; OCaml: not elpa. Install via opam: merlin, ocp-indent, utop
-(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
-(require 'merlin)
-(setq merlin-use-auto-complete-mode t)
-(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;; (load-file "~/.opam/4.01.0/share/emacs/site-lisp/ocp-indent.el")
-(add-to-list 'load-path (concat
-     (replace-regexp-in-string "\n$" ""
-        (shell-command-to-string "opam config var share"))
-     "/emacs/site-lisp"))
-  (require 'ocp-indent)
-
-;; *****************************************************************************
 (defun common-hooks() 
   (auto-highlight-symbol-mode)
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
-;; prolog
-(defun prolog-hooks() 
-  (local-set-key (kbd "M-e") 'prolog-consult-buffer))
-(add-hook 'prolog-mode-hook 'common-hooks)
-(add-hook 'prolog-mode-hook 'prolog-hooks)
-
-(defun python-hooks() 
-  (local-set-key (kbd "M-e") 'python-shell-send-buffer))
-
-;; python
-(add-hook 'python-mode-hook 'common-hooks)
-(add-hook 'inferior-python-mode 'common-hooks)
-
-;; tup
-(add-hook 'tup-mode-hook 'common-hooks)
-
-;; protobuf
-(add-hook 'protobuf-mode-hook 'common-hooks)
-
-;; org-mode
-(add-hook 'org-mode-hook 'common-hooks)
-
-(unless (boundp 'org-export-latex-classes)
-  (setq org-export-latex-classes nil))
-
-(add-to-list 'org-export-latex-classes '("article"
-               "\\documentclass{article}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-(add-to-list 'org-export-latex-classes
-          '("koma-article"
-             "\\documentclass{scrartcl}"
-             ("\\section{%s}" . "\\section*{%s}")
-             ("\\subsection{%s}" . "\\subsection*{%s}")
-             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-             ("\\paragraph{%s}" . "\\paragraph*{%s}")
-             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-(defun scala-hooks()
-  (local-set-key (kbd "M-e") 'sbt-send-region))
-
-;; rust
-(add-hook 'rust-mode-hook 'common-hooks)
-(add-hook 'rust-mode-hook 
-	  (lambda () 
-	    (local-set-key (kbd "RET") 'newline-and-indent)))
-;; Scala
-(add-hook 'scala-mode-hook 'common-hooks)
-(add-hook 'scala-mode-hook 'scala-hooks)
-(add-hook 'sbt-mode-hook 'common-hooks)
-
-;; Ocaml
+;; Ocaml -----------------------------------------------------------------------
 (defun ocp-indent-buffer ()
   (interactive nil)
   (ocp-indent-region (point-min) (point-max)))
+
+;; OCaml: not elpa. Install via opam: merlin, ocp-indent, utop
+;;(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
+;;(require 'merlin)
+;;(setq merlin-use-auto-complete-mode t)
+;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+;;;; (load-file "~/.opam/4.01.0/share/emacs/site-lisp/ocp-indent.el")
+;;(add-to-list 'load-path (concat
+;;     (replace-regexp-in-string "\n$" ""
+;;        (shell-command-to-string "opam config var share"))
+;;     "/emacs/site-lisp"))
+;;  (require 'ocp-indent)
 
 (defun ocaml-hooks()
   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
@@ -246,9 +166,12 @@ If the new path's directories does not exist, create them."
 (add-hook 'tuareg-mode-hook 'common-hooks)
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+;; -----------------------------------------------------------------------------
 
-;; Haskell
+;; Haskell ---------------------------------------------------------------------
 (require 'ghc)
+(setq haskell-stylish-on-save t)
+(define-key haskell-mode-map (kbd "C-x C-s") 'haskell-mode-save-buffer)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 (add-hook 'haskell-mode-hook 'haskell-doc-mode)
 ;(add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
@@ -259,12 +182,9 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "M-e") 'inferior-haskell-load-file))
 (add-hook 'haskell-mode-hook 'haskell-hooks)
 (add-hook 'inferior-haskell-mode-hook 'repl-hooks)
+;; -----------------------------------------------------------------------------
 
-;; Erlang
-(add-to-list 'load-path "~/.emacs.d/edts")
-(require 'edts-start)
-
-;; C 
+;; C ---------------------------------------------------------------------------
 (setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
@@ -278,14 +198,15 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
+;; -----------------------------------------------------------------------------
 
-;; Go
-(require 'go-autocomplete)
-(require 'auto-complete-config)
-(add-hook 'go-mode-hook 'common-hooks)
+;; Coq -------------------------------------------------------------------------
+(load-file "~/.emacs.d/no-elpa/ProofGeneral-4.2/generic/proof-site.el")
+;; -----------------------------------------------------------------------------
+
 
 ;; *****************************************************************************
-;; Global Keybindings 
+;; Keybindings 
 ;; *****************************************************************************
 
 ;; Buffers, info in general
@@ -328,9 +249,7 @@ If the new path's directories does not exist, create them."
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
  '(haskell-font-lock-symbols nil)
  '(haskell-stylish-on-save t)
- '(merlin-report-warnings nil)
- '(python-shell-interpreter "python3")
- '(sml-indent-level 2))
+ '(merlin-report-warnings nil))
 ;; -----------------------------------------------------------------------------
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
