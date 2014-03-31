@@ -133,17 +133,10 @@ If the new path's directories does not exist, create them."
   (interactive nil)
   (ocp-indent-region (point-min) (point-max)))
 
-;; OCaml: not elpa. Install via opam: merlin, ocp-indent, utop
-;;(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
-;;(require 'merlin)
-;;(setq merlin-use-auto-complete-mode t)
-;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;;;; (load-file "~/.opam/4.01.0/share/emacs/site-lisp/ocp-indent.el")
-;;(add-to-list 'load-path (concat
-;;     (replace-regexp-in-string "\n$" ""
-;;        (shell-command-to-string "opam config var share"))
-;;     "/emacs/site-lisp"))
-;;  (require 'ocp-indent)
+(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
+(require 'merlin)
+(setq merlin-use-auto-complete-mode t)
+(require 'ocp-indent)
 
 (defun ocaml-hooks()
   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
@@ -164,6 +157,9 @@ If the new path's directories does not exist, create them."
 (add-hook 'tuareg-mode-hook 'ocaml-hooks)
 (add-hook 'tuareg-mode-hook 'merlin-mode)
 (add-hook 'tuareg-mode-hook 'common-hooks)
+
+(require 'utop)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 ;; -----------------------------------------------------------------------------
