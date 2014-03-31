@@ -201,7 +201,7 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 
 ;; Coq -------------------------------------------------------------------------
-(load-file "~/.emacs.d/no-elpa/ProofGeneral-4.2/generic/proof-site.el")
+(load-file "~/.emacs.d/no-elpa/ProofGeneral/generic/proof-site.el")
 ;; -----------------------------------------------------------------------------
 
 
