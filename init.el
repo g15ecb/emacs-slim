@@ -128,10 +128,19 @@ If the new path's directories does not exist, create them."
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
+;; #F#
+(setq inferior-fsharp-program "/usr/bin/fsharpi --readline-")
+(setq fsharp-compiler "/usr/bin/fsharpc")
+(add-hook 'fsharp-mode-hook 'common-hooks)
+(add-hook 'inferior-fsharp-mode-hook 'common-hooks)
+(defun fsharp-hooks()
+  (define-key fsharp-mode-map (kbd "M-e") 'fsharp-eval-region))
+(add-hook 'fsharp-mode-hook 'fsharp-hooks)
+
 ;; Ocaml -----------------------------------------------------------------------
 (defun ocp-indent-buffer ()
-  (interactive nil)
-  (ocp-indent-region (point-min) (point-max)))
+ (interactive nil)
+ (ocp-indent-region (point-min) (point-max)))
 
 (add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
 (require 'merlin)
@@ -139,18 +148,18 @@ If the new path's directories does not exist, create them."
 (require 'ocp-indent)
 
 (defun ocaml-hooks()
-  (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
-  (local-set-key (kbd "M-/") 'utop-edit-complete)
-  (local-set-key (kbd "M-q") 'ocp-indent-buffer)
-  (local-set-key (kbd "M-n") 'merlin-phrase-next)
-  (local-set-key (kbd "M-p") 'merlin-phrase-prev)
-  (local-set-key (kbd "M-t") 'merlin-type-enclosing)
-  (local-set-key (kbd "M-l") 'merlin-locate))
+ (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+ (local-set-key (kbd "M-/") 'utop-edit-complete)
+ (local-set-key (kbd "M-q") 'ocp-indent-buffer)
+ (local-set-key (kbd "M-n") 'merlin-phrase-next)
+ (local-set-key (kbd "M-p") 'merlin-phrase-prev)
+ (local-set-key (kbd "M-t") 'merlin-type-enclosing)
+ (local-set-key (kbd "M-l") 'merlin-locate))
 
 (defun repl-hooks()
-  (auto-highlight-symbol-mode)
-  (autopair-mode)
-  (rainbow-delimiters-mode))
+ (auto-highlight-symbol-mode)
+ (autopair-mode)
+ (rainbow-delimiters-mode))
 
 (add-hook 'utop-mode-hook 'repl-hooks)
 (add-hook 'tuareg-mode-hook 'common-hooks)
@@ -163,6 +172,10 @@ If the new path's directories does not exist, create them."
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 ;; -----------------------------------------------------------------------------
+
+;; Erlang
+(add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
+(require 'edts-start)
 
 ;; Haskell ---------------------------------------------------------------------
 (require 'ghc)
@@ -224,7 +237,7 @@ If the new path's directories does not exist, create them."
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
 ;;(set-face-attribute 'default nil :height 160)
-(set-face-attribute 'default nil :height 160)
+(set-face-attribute 'default nil :height 200)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
@@ -238,8 +251,9 @@ If the new path's directories does not exist, create them."
  ;; If there is more than one, they won't work right.
  '(ac-modes (quote (emacs-lisp-mode tup-mode org-mode rust-mode prolog-mode prolog-inferior-mode inferior-haskell-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode sbt-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode erlang-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode verilog-mode markdown-mode)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
+ '(edts-man-root "/Users/gb/.emacs.d/edts/doc/R16B03")
  '(haskell-font-lock-symbols nil)
- '(haskell-stylish-on-save t)
+ '(haskell-stylish-on-save t t)
  '(merlin-report-warnings nil))
 ;; -----------------------------------------------------------------------------
 (custom-set-faces
