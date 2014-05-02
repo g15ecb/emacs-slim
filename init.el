@@ -61,8 +61,6 @@ If the new path's directories does not exist, create them."
 		      haskell-mode
 		      pandoc-mode
 		      markdown-mode
-		      helm
-		      helm-gtags
 		      ghc
 		      flycheck
 		      auto-highlight-symbol
@@ -86,7 +84,6 @@ If the new path's directories does not exist, create them."
 (require 'solarized-dark-theme)
 
 (evil-mode)
-(helm-mode)
 
 (persp-mode)
 (persp-rename "1")
@@ -173,10 +170,6 @@ If the new path's directories does not exist, create them."
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 ;; -----------------------------------------------------------------------------
 
-;; Erlang
-(add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
-(require 'edts-start)
-
 ;; Haskell ---------------------------------------------------------------------
 (require 'ghc)
 (setq haskell-stylish-on-save t)
@@ -197,10 +190,6 @@ If the new path's directories does not exist, create them."
 (setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
-  (helm-gtags-mode)
-  (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
-  (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
-  (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
   ;; (local-set-key (kbd "ret") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
 )
@@ -237,7 +226,7 @@ If the new path's directories does not exist, create them."
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
 ;;(set-face-attribute 'default nil :height 160)
-(set-face-attribute 'default nil :height 200)
+(set-face-attribute 'default nil :height 180)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
