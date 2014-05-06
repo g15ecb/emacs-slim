@@ -67,6 +67,7 @@ If the new path's directories does not exist, create them."
 		      flycheck-hdevtools
 		      google-this
 		      ack-and-a-half
+		      d-mode
                       auto-complete
 		      solarized-theme
 		      tuareg
