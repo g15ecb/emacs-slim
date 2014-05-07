@@ -68,6 +68,7 @@ If the new path's directories does not exist, create them."
 		      google-this
 		      ack-and-a-half
 		      d-mode
+		      rust-mode
                       auto-complete
 		      solarized-theme
 		      tuareg
@@ -125,15 +126,6 @@ If the new path's directories does not exist, create them."
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
-
-;; #F#
-(setq inferior-fsharp-program "/usr/bin/fsharpi --readline-")
-(setq fsharp-compiler "/usr/bin/fsharpc")
-(add-hook 'fsharp-mode-hook 'common-hooks)
-(add-hook 'inferior-fsharp-mode-hook 'common-hooks)
-(defun fsharp-hooks()
-  (define-key fsharp-mode-map (kbd "M-e") 'fsharp-eval-region))
-(add-hook 'fsharp-mode-hook 'fsharp-hooks)
 
 ;; Ocaml -----------------------------------------------------------------------
 (defun ocp-indent-buffer ()
@@ -244,7 +236,9 @@ If the new path's directories does not exist, create them."
  '(edts-man-root "/Users/gb/.emacs.d/edts/doc/R16B03")
  '(haskell-font-lock-symbols nil)
  '(haskell-stylish-on-save t t)
- '(merlin-report-warnings nil))
+ '(magit-use-overlays nil)
+ '(merlin-report-warnings nil)
+ '(tab-width 2))
 ;; -----------------------------------------------------------------------------
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
