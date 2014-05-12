@@ -54,25 +54,12 @@ If the new path's directories does not exist, create them."
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(magit 
-                      autopair
-		      perspective
-		      rainbow-delimiters
-		      haskell-mode
-		      pandoc-mode
-		      markdown-mode
-		      ghc
-		      flycheck
-		      auto-highlight-symbol
-		      flycheck-hdevtools
-		      google-this
-		      ack-and-a-half
-		      d-mode
-		      rust-mode
-                      auto-complete
-		      solarized-theme
-		      tuareg
-		      evil)
+(defvar my-packages '(magit autopair perspective
+                      rainbow-delimiters haskell-mode pandoc-mode
+                      markdown-mode ghc flycheck
+                      auto-highlight-symbol flycheck-hdevtools
+                      google-this ack-and-a-half d-mode rust-mode
+                      auto-complete solarized-theme tuareg evil)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
