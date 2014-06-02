@@ -74,6 +74,9 @@ If the new path's directories does not exist, create them."
 
 (evil-mode)
 
+(require 'yasnippet)
+(yas-global-mode 1)
+
 (persp-mode)
 (persp-rename "1")
 (persp-switch "2")
@@ -210,7 +213,7 @@ If the new path's directories does not exist, create them."
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
 ;;(set-face-attribute 'default nil :height 160)
-(set-face-attribute 'default nil :height 180)
+(set-face-attribute 'default nil :height 200)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
