@@ -54,12 +54,13 @@ If the new path's directories does not exist, create them."
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(magit autopair perspective
+(defvar my-packages '(magit autopair 
                       rainbow-delimiters haskell-mode pandoc-mode
                       markdown-mode ghc flycheck erlang go-mode
                       auto-highlight-symbol flycheck-hdevtools
                       google-this ack-and-a-half d-mode rust-mode
-                      auto-complete solarized-theme tuareg evil)
+		      color-theme-solarized
+                      auto-complete tuareg evil elixir-mode elixir-mix)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -70,19 +71,10 @@ If the new path's directories does not exist, create them."
 ;; *****************************************************************************
 ;; Configurations
 ;; *****************************************************************************
-(require 'solarized-dark-theme)
+;; (require 'solarized-dark-theme)
+(load-theme 'solarized-dark t)
 
 (evil-mode)
-
-(require 'yasnippet)
-(yas-global-mode 1)
-
-(persp-mode)
-(persp-rename "1")
-(persp-switch "2")
-(persp-switch "3")
-(persp-switch "4")
-(persp-switch "1")
 
 ;; Autocomplete ----------------------------------------------------------------
 (require 'auto-complete-config)
@@ -118,39 +110,39 @@ If the new path's directories does not exist, create them."
   (rainbow-delimiters-mode))
 
 ;; Ocaml -----------------------------------------------------------------------
-(defun ocp-indent-buffer ()
- (interactive nil)
- (ocp-indent-region (point-min) (point-max)))
-
-(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
-(require 'merlin)
-(setq merlin-use-auto-complete-mode t)
-(require 'ocp-indent)
-
-(defun ocaml-hooks()
- (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
- (local-set-key (kbd "M-/") 'utop-edit-complete)
- (local-set-key (kbd "M-q") 'ocp-indent-buffer)
- (local-set-key (kbd "M-n") 'merlin-phrase-next)
- (local-set-key (kbd "M-p") 'merlin-phrase-prev)
- (local-set-key (kbd "M-t") 'merlin-type-enclosing)
- (local-set-key (kbd "M-l") 'merlin-locate))
-
-(defun repl-hooks()
- (auto-highlight-symbol-mode)
- (autopair-mode)
- (rainbow-delimiters-mode))
-
-(add-hook 'utop-mode-hook 'repl-hooks)
-(add-hook 'tuareg-mode-hook 'common-hooks)
-(add-hook 'tuareg-mode-hook 'ocaml-hooks)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'tuareg-mode-hook 'common-hooks)
-
-(require 'utop)
-(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+;(defun ocp-indent-buffer ()
+; (interactive nil)
+; (ocp-indent-region (point-min) (point-max)))
+;
+;(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
+;(require 'merlin)
+;(setq merlin-use-auto-complete-mode t)
+;(require 'ocp-indent)
+;
+;(defun ocaml-hooks()
+; (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+; (local-set-key (kbd "M-/") 'utop-edit-complete)
+; (local-set-key (kbd "M-q") 'ocp-indent-buffer)
+; (local-set-key (kbd "M-n") 'merlin-phrase-next)
+; (local-set-key (kbd "M-p") 'merlin-phrase-prev)
+; (local-set-key (kbd "M-t") 'merlin-type-enclosing)
+; (local-set-key (kbd "M-l") 'merlin-locate))
+;
+;(defun repl-hooks()
+; (auto-highlight-symbol-mode)
+; (autopair-mode)
+; (rainbow-delimiters-mode))
+;
+;(add-hook 'utop-mode-hook 'repl-hooks)
+;(add-hook 'tuareg-mode-hook 'common-hooks)
+;(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+;(add-hook 'tuareg-mode-hook 'merlin-mode)
+;(add-hook 'tuareg-mode-hook 'common-hooks)
+;
+;(require 'utop)
+;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 ;; -----------------------------------------------------------------------------
 
 ;; Haskell ---------------------------------------------------------------------
@@ -179,6 +171,14 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
+
+;; Elixir
+(require 'elixir-mix)
+(global-elixir-mix-mode) ;; enable elixir-mix
+(add-hook 'elixir-mode-hook 'common-hooks)
+(add-hook 'elixir-mode-hook '(lambda ()
+	(local-set-key (kbd "M-m") 'elixir-mix-test)
+  (local-set-key (kbd "RET") 'newline-and-indent)))
 
 ;; Erlang
 (add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
@@ -212,8 +212,8 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-;;(set-face-attribute 'default nil :height 160)
-(set-face-attribute 'default nil :height 200)
+;;(set-face-attribute 'default nil :height 180)
+(set-face-attribute 'default nil :height 180)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
@@ -225,15 +225,14 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ac-modes (quote (emacs-lisp-mode tup-mode org-mode rust-mode prolog-mode prolog-inferior-mode inferior-haskell-mode bibtex-mode d-mode lisp-mode latex-mode LaTeX-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode sbt-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode erlang-mode cperl-mode python-mode ruby-mode lua-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode verilog-mode markdown-mode)))
- '(ac-use-fuzzy t)
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "b1e54397de2c207e550dc3a090844c4b52d1a2c4a48a17163cce577b09c28236" default)))
- '(haskell-font-lock-symbols nil)
- '(haskell-stylish-on-save t t)
- '(magit-use-overlays nil)
- '(merlin-report-warnings nil)
- '(tab-width 2))
+ '(custom-safe-themes (quote ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default)))
+ '(edts-inhibit-package-check t)
+ '(edts-man-root "/home/gb/.emacs.d/edts/doc/17.0"))
 ;; -----------------------------------------------------------------------------
+
+
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
