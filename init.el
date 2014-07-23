@@ -57,7 +57,7 @@ If the new path's directories does not exist, create them."
 (defvar my-packages '(magit autopair 
                       rainbow-delimiters haskell-mode pandoc-mode
                       markdown-mode ghc flycheck erlang go-mode
-                      auto-highlight-symbol flycheck-hdevtools
+                      flycheck-hdevtools soft-charcoal-theme
                       google-this ack-and-a-half d-mode rust-mode
 		      color-theme-solarized
                       auto-complete tuareg evil elixir-mode elixir-mix)
@@ -67,12 +67,12 @@ If the new path's directories does not exist, create them."
   (when (not (package-installed-p p))
     (package-install p)))
 
-
 ;; *****************************************************************************
 ;; Configurations
 ;; *****************************************************************************
 ;; (require 'solarized-dark-theme)
-(load-theme 'solarized-dark t)
+;(load-theme 'solarized-dark t)
+(load-theme 'soft-charcoal)
 
 (evil-mode)
 
@@ -104,7 +104,7 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 
 (defun common-hooks() 
-  (auto-highlight-symbol-mode)
+  ;;(auto-highlight-symbol-mode)
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
@@ -207,13 +207,12 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-m") 'compile)
 
-
 ;; Variable 
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
 ;;(set-face-attribute 'default nil :height 180)
-(set-face-attribute 'default nil :height 180)
+(set-face-attribute 'default nil :height 160)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
@@ -225,9 +224,7 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default)))
- '(edts-inhibit-package-check t)
- '(edts-man-root "/home/gb/.emacs.d/edts/doc/17.0"))
+ '(custom-safe-themes (quote ("9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default))))
 ;; -----------------------------------------------------------------------------
 
 
