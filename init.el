@@ -104,45 +104,45 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 
 (defun common-hooks() 
-  ;;(auto-highlight-symbol-mode)
+  (auto-highlight-symbol-mode)
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
 
 ;; Ocaml -----------------------------------------------------------------------
-;(defun ocp-indent-buffer ()
-; (interactive nil)
-; (ocp-indent-region (point-min) (point-max)))
-;
-;(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
-;(require 'merlin)
-;(setq merlin-use-auto-complete-mode t)
-;(require 'ocp-indent)
-;
-;(defun ocaml-hooks()
-; (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
-; (local-set-key (kbd "M-/") 'utop-edit-complete)
-; (local-set-key (kbd "M-q") 'ocp-indent-buffer)
-; (local-set-key (kbd "M-n") 'merlin-phrase-next)
-; (local-set-key (kbd "M-p") 'merlin-phrase-prev)
-; (local-set-key (kbd "M-t") 'merlin-type-enclosing)
-; (local-set-key (kbd "M-l") 'merlin-locate))
-;
-;(defun repl-hooks()
-; (auto-highlight-symbol-mode)
-; (autopair-mode)
-; (rainbow-delimiters-mode))
-;
-;(add-hook 'utop-mode-hook 'repl-hooks)
-;(add-hook 'tuareg-mode-hook 'common-hooks)
-;(add-hook 'tuareg-mode-hook 'ocaml-hooks)
-;(add-hook 'tuareg-mode-hook 'merlin-mode)
-;(add-hook 'tuareg-mode-hook 'common-hooks)
-;
-;(require 'utop)
-;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+(defun ocp-indent-buffer ()
+ (interactive nil)
+ (ocp-indent-region (point-min) (point-max)))
+
+(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
+(require 'merlin)
+(setq -merlin-use-auto-complete-mode t)
+(require 'ocp-indent)
+
+(defun ocaml-hooks()
+ (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+ (local-set-key (kbd "M-/") 'utop-edit-complete)
+ (local-set-key (kbd "M-q") 'ocp-indent-buffer))
+ (local-set-key (kbd "M-n") 'merlin-phrase-next)
+ (local-set-key (kbd "M-p") 'merlin-phrase-prev)
+ (local-set-key (kbd "M-t") 'merlin-type-enclosing)
+ (local-set-key (kbd "M-l") 'merlin-locate)
+
+(defun repl-hooks()
+ (auto-highlight-symbol-mode)
+ (autopair-mode)
+ (rainbow-delimiters-mode))
+
+(add-hook 'utop-mode-hook 'repl-hooks)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+
+(require 'utop)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 ;; -----------------------------------------------------------------------------
 
 ;; Haskell ---------------------------------------------------------------------
@@ -181,8 +181,8 @@ If the new path's directories does not exist, create them."
   (local-set-key (kbd "RET") 'newline-and-indent)))
 
 ;; Erlang
-(add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
-(require 'edts-start)
+;; (add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
+;; (require 'edts-start)
 ;; -----------------------------------------------------------------------------
 
 ;; *****************************************************************************
@@ -224,6 +224,8 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ac-auto-start 1)
+ '(ac-modes (quote (emacs-lisp-mode erlang-shell-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode qml-mode erlang-mode)))
  '(custom-safe-themes (quote ("9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default))))
 ;; -----------------------------------------------------------------------------
 
