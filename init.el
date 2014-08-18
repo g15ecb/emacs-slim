@@ -1,6 +1,24 @@
 ;; Granville Barnett's Emacs Config
 ;; granvillebarnett@gmail.com
 
+;; -----------------------------------------------------------------------------
+;; Emacs generated
+;; -----------------------------------------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ac-auto-start 1)
+ '(ac-modes (quote (emacs-lisp-mode sml-mode graphviz-dot-mode erlang-shell-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode qml-mode erlang-mode)))
+ '(custom-safe-themes (quote ("6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default))))
+;; -----------------------------------------------------------------------------
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 ;; *****************************************************************************
 ;; Basics
@@ -45,7 +63,7 @@ If the new path's directories does not exist, create them."
 ;; *****************************************************************************
 (require 'package)
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+(setq package-archives '(("elpa" . "http://elpa.gnu.org/packages/")
                            ("marmalade" . "http://marmalade-repo.org/packages/")
                            ("melpa" . "http://melpa.milkbox.net/packages/")))
 
@@ -55,12 +73,28 @@ If the new path's directories does not exist, create them."
   (package-refresh-contents))
 
 (defvar my-packages '(magit autopair 
-                      rainbow-delimiters haskell-mode pandoc-mode
-                      markdown-mode ghc flycheck erlang go-mode
-                      flycheck-hdevtools soft-charcoal-theme
-                      google-this ack-and-a-half d-mode rust-mode
-		      color-theme-solarized
-                      auto-complete tuareg evil elixir-mode elixir-mix)
+                      rainbow-delimiters 
+		      haskell-mode 
+		      pandoc-mode
+                      markdown-mode 
+		      ghc 
+		      flycheck 
+		      erlang 
+		      go-mode
+                      flycheck-hdevtools 
+		      soft-charcoal-theme
+                      google-this 
+		      sml-mode
+		      ack-and-a-half 
+		      d-mode 
+		      rust-mode
+                      auto-complete 
+		      tuareg 
+		      evil 
+		      smart-mode-line
+		      graphviz-dot-mode
+		      elixir-mode 
+		      elixir-mix)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -70,11 +104,10 @@ If the new path's directories does not exist, create them."
 ;; *****************************************************************************
 ;; Configurations
 ;; *****************************************************************************
-;; (require 'solarized-dark-theme)
-;(load-theme 'solarized-dark t)
-(load-theme 'soft-charcoal)
-
+(load-theme 'soft-charcoal t)
 (evil-mode)
+(sml/setup)
+(sml/apply-theme 'dark) 
 
 ;; Autocomplete ----------------------------------------------------------------
 (require 'auto-complete-config)
@@ -115,8 +148,11 @@ If the new path's directories does not exist, create them."
  (ocp-indent-region (point-min) (point-max)))
 
 (add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
-(require 'merlin)
-(setq -merlin-use-auto-complete-mode t)
+;; (autoload 'merlin-mode "merlin" "Merlin mode" t)
+;; (add-hook 'tuareg-mode-hook 'merlin-mode)
+;; (add-hook 'caml-mode-hook 'merlin-mode)
+;;(require 'merlin)
+;;(setq -merlin-use-auto-complete-mode t)
 (require 'ocp-indent)
 
 (defun ocaml-hooks()
@@ -136,7 +172,7 @@ If the new path's directories does not exist, create them."
 (add-hook 'utop-mode-hook 'repl-hooks)
 (add-hook 'tuareg-mode-hook 'common-hooks)
 (add-hook 'tuareg-mode-hook 'ocaml-hooks)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
+;;(add-hook 'tuareg-mode-hook 'merlin-mode)
 (add-hook 'tuareg-mode-hook 'common-hooks)
 
 (require 'utop)
@@ -144,6 +180,9 @@ If the new path's directories does not exist, create them."
 (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
 (add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 ;; -----------------------------------------------------------------------------
+
+;; SML
+(add-hook 'sml-mode-hook 'common-hooks)
 
 ;; Haskell ---------------------------------------------------------------------
 (require 'ghc)
@@ -183,6 +222,10 @@ If the new path's directories does not exist, create them."
 ;; Erlang
 ;; (add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
 ;; (require 'edts-start)
+;; (add-hook 'after-init-hook 'my-after-init-hook)
+;; (defun my-after-init-hook ()
+;;   (require 'edts-start))
+(add-hook 'erlang-mode-hook 'common-hooks)
 ;; -----------------------------------------------------------------------------
 
 ;; *****************************************************************************
@@ -217,24 +260,3 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
 
-;; Junk
-;; -----------------------------------------------------------------------------
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ac-auto-start 1)
- '(ac-modes (quote (emacs-lisp-mode erlang-shell-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode qml-mode erlang-mode)))
- '(custom-safe-themes (quote ("9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default))))
-;; -----------------------------------------------------------------------------
-
-
-
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
