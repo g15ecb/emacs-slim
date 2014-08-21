@@ -77,6 +77,7 @@ If the new path's directories does not exist, create them."
 		      haskell-mode 
 		      pandoc-mode
                       markdown-mode 
+		      ggtags
 		      ghc 
 		      flycheck 
 		      erlang 
@@ -206,6 +207,7 @@ If the new path's directories does not exist, create them."
 (defun c-hooks()
   ;; (local-set-key (kbd "ret") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
+  (ggtags-mode)
 )
 
 (add-hook 'c-mode-common-hook 'common-hooks)
@@ -226,6 +228,7 @@ If the new path's directories does not exist, create them."
 ;; (defun my-after-init-hook ()
 ;;   (require 'edts-start))
 (add-hook 'erlang-mode-hook 'common-hooks)
+(add-hook 'erlang-shell-mode-hook 'common-hooks)
 ;; -----------------------------------------------------------------------------
 
 ;; *****************************************************************************
