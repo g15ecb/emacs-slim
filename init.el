@@ -144,42 +144,53 @@ If the new path's directories does not exist, create them."
   (rainbow-delimiters-mode))
 
 ;; Ocaml -----------------------------------------------------------------------
-(defun ocp-indent-buffer ()
- (interactive nil)
- (ocp-indent-region (point-min) (point-max)))
 
-(add-to-list 'load-path "~/.opam/4.01.0/share/emacs/site-lisp/")
-;; (autoload 'merlin-mode "merlin" "Merlin mode" t)
-;; (add-hook 'tuareg-mode-hook 'merlin-mode)
-;; (add-hook 'caml-mode-hook 'merlin-mode)
-;;(require 'merlin)
-;;(setq -merlin-use-auto-complete-mode t)
-(require 'ocp-indent)
+;; OPAM: path where Emacs bits are stored 
+(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+
+;; Merlin
+;; Load merlin-mode
+(require 'merlin)
+;; Start merlin on ocaml files
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(add-hook 'caml-mode-hook 'merlin-mode t)
+;; Enable auto-complete
+(setq merlin-use-auto-complete-mode 'easy)
+;; Use opam switch to lookup ocamlmerlin binary
+(setq merlin-command 'opam)
+
+;; utop
+;;(require 'utop)
+;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+;;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+;;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+
+;; ocp-indent
+;;(require 'ocp-indent)
+;;(defun ocp-indent-buffer ()
+;; (interactive nil)
+;; (ocp-indent-region (point-min) (point-max)))
 
 (defun ocaml-hooks()
  (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
  (local-set-key (kbd "M-/") 'utop-edit-complete)
- (local-set-key (kbd "M-q") 'ocp-indent-buffer))
+ (local-set-key (kbd "M-q") 'ocp-indent-buffer)
  (local-set-key (kbd "M-n") 'merlin-phrase-next)
  (local-set-key (kbd "M-p") 'merlin-phrase-prev)
  (local-set-key (kbd "M-t") 'merlin-type-enclosing)
- (local-set-key (kbd "M-l") 'merlin-locate)
+ (local-set-key (kbd "M-l") 'merlin-locate))
+
+(add-hook 'utop-mode-hook 'repl-hooks)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+(add-hook 'tuareg-mode-hook 'common-hooks)
 
 (defun repl-hooks()
  (auto-highlight-symbol-mode)
  (autopair-mode)
  (rainbow-delimiters-mode))
 
-(add-hook 'utop-mode-hook 'repl-hooks)
-(add-hook 'tuareg-mode-hook 'common-hooks)
-(add-hook 'tuareg-mode-hook 'ocaml-hooks)
-;;(add-hook 'tuareg-mode-hook 'merlin-mode)
-(add-hook 'tuareg-mode-hook 'common-hooks)
-
-(require 'utop)
-(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 ;; -----------------------------------------------------------------------------
 
 ;; SML
@@ -213,22 +224,18 @@ If the new path's directories does not exist, create them."
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
 
-;; Elixir
-(require 'elixir-mix)
-(global-elixir-mix-mode) ;; enable elixir-mix
-(add-hook 'elixir-mode-hook 'common-hooks)
-(add-hook 'elixir-mode-hook '(lambda ()
-	(local-set-key (kbd "M-m") 'elixir-mix-test)
-  (local-set-key (kbd "RET") 'newline-and-indent)))
-
 ;; Erlang
-;; (add-to-list 'load-path "~/.emacs.d/no-elpa/edts")
+;;(add-to-list 'load-path "~/.emacs.d/edts")
 ;; (require 'edts-start)
 ;; (add-hook 'after-init-hook 'my-after-init-hook)
 ;; (defun my-after-init-hook ()
 ;;   (require 'edts-start))
-(add-hook 'erlang-mode-hook 'common-hooks)
-(add-hook 'erlang-shell-mode-hook 'common-hooks)
+;;(add-hook 'after-init-hook 'my-after-init-hook)
+;;(defun my-after-init-hook ()
+;;  (require 'edts-start))
+;;
+;;(add-hook 'erlang-mode-hook 'common-hooks)
+;;(add-hook 'erlang-shell-mode-hook 'common-hooks)
 ;; -----------------------------------------------------------------------------
 
 ;; *****************************************************************************
