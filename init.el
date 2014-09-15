@@ -72,30 +72,19 @@ If the new path's directories does not exist, create them."
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(magit autopair 
+(defvar my-packages '(magit 
+		      autopair 
                       rainbow-delimiters 
-		      haskell-mode 
-		      pandoc-mode
+		      highlight-symbol
                       markdown-mode 
 		      ggtags
-		      ghc 
-		      flycheck 
 		      erlang 
-		      go-mode
-                      flycheck-hdevtools 
 		      soft-charcoal-theme
-                      google-this 
-		      sml-mode
 		      ack-and-a-half 
-		      d-mode 
-		      rust-mode
                       auto-complete 
 		      tuareg 
 		      evil 
-		      smart-mode-line
-		      graphviz-dot-mode
-		      elixir-mode 
-		      elixir-mix)
+		      smart-mode-line)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -138,7 +127,7 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 
 (defun common-hooks() 
-  (auto-highlight-symbol-mode)
+  (highlight-symbol-mode)
   (autopair-mode)
   (show-paren-mode)
   (rainbow-delimiters-mode))
@@ -148,17 +137,6 @@ If the new path's directories does not exist, create them."
 ;; OPAM: path where Emacs bits are stored 
 (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-
-;; Merlin
-;; Load merlin-mode
-(require 'merlin)
-;; Start merlin on ocaml files
-(add-hook 'tuareg-mode-hook 'merlin-mode t)
-(add-hook 'caml-mode-hook 'merlin-mode t)
-;; Enable auto-complete
-(setq merlin-use-auto-complete-mode 'easy)
-;; Use opam switch to lookup ocamlmerlin binary
-(setq merlin-command 'opam)
 
 ;; utop
 ;;(require 'utop)
@@ -175,11 +153,7 @@ If the new path's directories does not exist, create them."
 (defun ocaml-hooks()
  (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
  (local-set-key (kbd "M-/") 'utop-edit-complete)
- (local-set-key (kbd "M-q") 'ocp-indent-buffer)
- (local-set-key (kbd "M-n") 'merlin-phrase-next)
- (local-set-key (kbd "M-p") 'merlin-phrase-prev)
- (local-set-key (kbd "M-t") 'merlin-type-enclosing)
- (local-set-key (kbd "M-l") 'merlin-locate))
+ (local-set-key (kbd "M-q") 'ocp-indent-buffer))
 
 (add-hook 'utop-mode-hook 'repl-hooks)
 (add-hook 'tuareg-mode-hook 'common-hooks)
@@ -187,36 +161,15 @@ If the new path's directories does not exist, create them."
 (add-hook 'tuareg-mode-hook 'common-hooks)
 
 (defun repl-hooks()
- (auto-highlight-symbol-mode)
+ (highlight-symbol-mode)
  (autopair-mode)
  (rainbow-delimiters-mode))
-
-;; -----------------------------------------------------------------------------
-
-;; SML
-(add-hook 'sml-mode-hook 'common-hooks)
-
-;; Haskell ---------------------------------------------------------------------
-(require 'ghc)
-(setq haskell-stylish-on-save t)
-(define-key haskell-mode-map (kbd "C-x C-s") 'haskell-mode-save-buffer)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook 'haskell-doc-mode)
-;(add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
-(add-hook 'haskell-mode-hook 'common-hooks)
-
-(defun haskell-hooks()
-  (flycheck-mode)
-  (local-set-key (kbd "M-e") 'inferior-haskell-load-file))
-(add-hook 'haskell-mode-hook 'haskell-hooks)
-(add-hook 'inferior-haskell-mode-hook 'repl-hooks)
-;; -----------------------------------------------------------------------------
 
 ;; C ---------------------------------------------------------------------------
 (setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
-  ;; (local-set-key (kbd "ret") 'newline-and-indent)
+  (local-set-key (kbd "ret") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
   (ggtags-mode)
 )
@@ -225,18 +178,8 @@ If the new path's directories does not exist, create them."
 (add-hook 'c-mode-common-hook 'c-hooks)
 
 ;; Erlang
-;;(add-to-list 'load-path "~/.emacs.d/edts")
-;; (require 'edts-start)
-;; (add-hook 'after-init-hook 'my-after-init-hook)
-;; (defun my-after-init-hook ()
-;;   (require 'edts-start))
-;;(add-hook 'after-init-hook 'my-after-init-hook)
-;;(defun my-after-init-hook ()
-;;  (require 'edts-start))
-;;
-;;(add-hook 'erlang-mode-hook 'common-hooks)
-;;(add-hook 'erlang-shell-mode-hook 'common-hooks)
-;; -----------------------------------------------------------------------------
+(add-hook 'erlang-mode-hook 'common-hooks)
+(add-hook 'erlang-shell-mode-hook 'common-hooks)
 
 ;; *****************************************************************************
 ;; Keybindings 
@@ -245,12 +188,10 @@ If the new path's directories does not exist, create them."
 ;; Buffers, info in general
 (global-set-key (kbd "M-f") 'ido-find-file)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
-(global-set-key (kbd "M-?") 'google-this)
 (global-set-key (kbd "M-9") 'query-replace)
 (global-set-key (kbd "M-0") 'ack-and-a-half)
 
 ;; Packages...
-(global-set-key (kbd "M-4") 'persp-switch)
 (global-set-key (kbd "M-7") 'magit-status)
 (global-set-key (kbd "M--") 'ac-isearch)
 
@@ -260,12 +201,11 @@ If the new path's directories does not exist, create them."
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-m") 'compile)
 
-;; Variable 
+;; Variables
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-;;(set-face-attribute 'default nil :height 180)
-(set-face-attribute 'default nil :height 160)
+(set-face-attribute 'default nil :height 200)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
