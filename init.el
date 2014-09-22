@@ -135,8 +135,8 @@ If the new path's directories does not exist, create them."
 ;; Ocaml -----------------------------------------------------------------------
 
 ;; OPAM: path where Emacs bits are stored 
-(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+;;(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+;;(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 
 ;; utop
 ;;(require 'utop)
@@ -150,15 +150,15 @@ If the new path's directories does not exist, create them."
 ;; (interactive nil)
 ;; (ocp-indent-region (point-min) (point-max)))
 
-(defun ocaml-hooks()
- (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
- (local-set-key (kbd "M-/") 'utop-edit-complete)
- (local-set-key (kbd "M-q") 'ocp-indent-buffer))
-
-(add-hook 'utop-mode-hook 'repl-hooks)
-(add-hook 'tuareg-mode-hook 'common-hooks)
-(add-hook 'tuareg-mode-hook 'ocaml-hooks)
-(add-hook 'tuareg-mode-hook 'common-hooks)
+;;(defun ocaml-hooks()
+;; (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+;; (local-set-key (kbd "M-/") 'utop-edit-complete)
+;; (local-set-key (kbd "M-q") 'ocp-indent-buffer))
+;;
+;;(add-hook 'utop-mode-hook 'repl-hooks)
+;;(add-hook 'tuareg-mode-hook 'common-hooks)
+;;(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+;;(add-hook 'tuareg-mode-hook 'common-hooks)
 
 (defun repl-hooks()
  (highlight-symbol-mode)
@@ -205,7 +205,7 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-(set-face-attribute 'default nil :height 200)
+(set-face-attribute 'default nil :height 160)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
