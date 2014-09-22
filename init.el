@@ -169,7 +169,7 @@ If the new path's directories does not exist, create them."
 (setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
-  (local-set-key (kbd "ret") 'newline-and-indent)
+  ;; (local-set-key (kbd "ret") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
   (ggtags-mode)
 )
