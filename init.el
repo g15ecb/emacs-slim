@@ -10,7 +10,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-start 1)
- '(ac-modes (quote (emacs-lisp-mode sml-mode graphviz-dot-mode erlang-shell-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode qml-mode erlang-mode)))
+ '(ac-modes (quote (LaTeX-mode latex-mode emacs-lisp-mode d-mode sml-mode graphviz-dot-mode erlang-shell-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode qml-mode erlang-mode)))
  '(custom-safe-themes (quote ("6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default))))
 ;; -----------------------------------------------------------------------------
 (custom-set-faces
@@ -135,30 +135,37 @@ If the new path's directories does not exist, create them."
 ;; Ocaml -----------------------------------------------------------------------
 
 ;; OPAM: path where Emacs bits are stored 
-;;(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-;;(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 
 ;; utop
-;;(require 'utop)
-;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-;;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+(require 'utop)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 
 ;; ocp-indent
-;;(require 'ocp-indent)
-;;(defun ocp-indent-buffer ()
-;; (interactive nil)
-;; (ocp-indent-region (point-min) (point-max)))
+(require 'ocp-indent)
+(defun ocp-indent-buffer ()
+  (interactive nil)
+  (ocp-indent-region (point-min) (point-max)))
 
-;;(defun ocaml-hooks()
-;; (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
-;; (local-set-key (kbd "M-/") 'utop-edit-complete)
-;; (local-set-key (kbd "M-q") 'ocp-indent-buffer))
-;;
-;;(add-hook 'utop-mode-hook 'repl-hooks)
-;;(add-hook 'tuareg-mode-hook 'common-hooks)
-;;(add-hook 'tuareg-mode-hook 'ocaml-hooks)
-;;(add-hook 'tuareg-mode-hook 'common-hooks)
+;; merlin
+(require 'merlin)
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(add-hook 'caml-mode-hook 'merlin-mode t)
+(setq merlin-use-auto-complete-mode 'easy)
+(setq merlin-command 'opam)
+
+(defun ocaml-hooks()
+  (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+  (local-set-key (kbd "M-/") 'utop-edit-complete)
+  (local-set-key (kbd "M-q") 'ocp-indent-buffer))
+
+(add-hook 'utop-mode-hook 'repl-hooks)
+(add-hook 'tuareg-mode-hook 'common-hooks)
+(add-hook 'tuareg-mode-hook 'ocaml-hooks)
+(add-hook 'tuareg-mode-hook 'common-hooks)
 
 (defun repl-hooks()
  (highlight-symbol-mode)
