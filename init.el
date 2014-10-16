@@ -37,7 +37,8 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (setq default-major-mode 'text-mode)
 (global-font-lock-mode t)
-(ido-mode t)
+(ido-mode 1)
+(ido-everywhere 1)
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 (setq ido-enable-last-directory-history nil) ; forget latest selected directory
 
@@ -80,6 +81,7 @@ If the new path's directories does not exist, create them."
                       markdown-mode 
 		      ggtags
 		      erlang 
+		      projectile
 		      soft-charcoal-theme
 		      ack-and-a-half 
                       auto-complete 
@@ -99,6 +101,7 @@ If the new path's directories does not exist, create them."
 (evil-mode)
 (sml/setup)
 (sml/apply-theme 'dark) 
+(projectile-global-mode)
 
 ;; Autocomplete ----------------------------------------------------------------
 (require 'auto-complete-config)
@@ -184,6 +187,14 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
+
+;; Python -----------------------------------------------------------------------
+(setq python-shell-interpreter "python3.4")
+(defun python-hooks()
+  (local-set-key (kbd "M-e") 'python-shell-send-buffer))
+  
+(add-hook 'python-mode-hook 'common-hooks)
+(add-hook 'python-mode-hook 'python-hooks)
 
 ;; Erlang
 (add-hook 'erlang-mode-hook 'common-hooks)
