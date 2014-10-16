@@ -10,7 +10,20 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-start 1)
- '(ac-modes (quote (emacs-lisp-mode sml-mode d-mode graphviz-dot-mode erlang-shell-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode ts-mode sclang-mode verilog-mode qml-mode erlang-mode)))
+ '(ac-modes (quote (emacs-lisp-mode
+		    erlang-mode
+		    erlang-shell-mode 
+		    c-mode 
+		    cc-mode 
+		    c++-mode 
+		    java-mode 
+		    makefile-mode 
+		    ocaml-mode 
+		    python-mode 
+		    rust-mode
+		    sh-mode
+		    tuareg-mode)))
+
  '(custom-safe-themes (quote ("6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default))))
 ;; -----------------------------------------------------------------------------
 (custom-set-faces
@@ -36,7 +49,8 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (setq default-major-mode 'text-mode)
 (global-font-lock-mode t)
-(ido-mode t)
+(ido-mode 1)
+(ido-everywhere 1)
 (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 (setq ido-enable-last-directory-history nil) ; forget latest selected directory
 
@@ -79,9 +93,11 @@ If the new path's directories does not exist, create them."
                       markdown-mode 
 		      ggtags
 		      erlang 
+		      projectile
 		      soft-charcoal-theme
 		      ack-and-a-half 
                       auto-complete 
+		      rust-mode
 		      tuareg 
 		      evil 
 		      smart-mode-line)
@@ -98,6 +114,7 @@ If the new path's directories does not exist, create them."
 (evil-mode)
 (sml/setup)
 (sml/apply-theme 'dark) 
+(projectile-global-mode)
 
 ;; Autocomplete ----------------------------------------------------------------
 (require 'auto-complete-config)
@@ -133,27 +150,26 @@ If the new path's directories does not exist, create them."
   (rainbow-delimiters-mode))
 
 ;; Ocaml -----------------------------------------------------------------------
-
-;; OPAM: path where Emacs bits are stored 
-;; (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-;; (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+;; opam
+(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 
 ;; utop
-;;(require 'utop)
-;;(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-;;(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
-;;(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
+(require 'utop)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'typerex-mode-hook 'utop-setup-ocaml-buffer)
 
 ;; ocp-indent
-;;(require 'ocp-indent)
-;;(defun ocp-indent-buffer ()
-;; (interactive nil)
-;; (ocp-indent-region (point-min) (point-max)))
+(require 'ocp-indent)
+(defun ocp-indent-buffer ()
+  (interactive nil)
+  (ocp-indent-region (point-min) (point-max)))
 
 (defun ocaml-hooks()
- (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
- (local-set-key (kbd "M-/") 'utop-edit-complete)
- (local-set-key (kbd "M-q") 'ocp-indent-buffer))
+  (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
+  (local-set-key (kbd "M-/") 'utop-edit-complete)
+  (local-set-key (kbd "M-q") 'ocp-indent-buffer))
 
 (add-hook 'utop-mode-hook 'repl-hooks)
 (add-hook 'tuareg-mode-hook 'common-hooks)
@@ -165,11 +181,13 @@ If the new path's directories does not exist, create them."
  (autopair-mode)
  (rainbow-delimiters-mode))
 
+;; Rust ------------------------------------------------------------------------
+(add-hook 'rust-mode-hook 'common-hooks)
+
 ;; C ---------------------------------------------------------------------------
 (setq c-default-style "linux" c-basic-offset 4)
 
 (defun c-hooks()
-  ;; (local-set-key (kbd "ret") 'newline-and-indent)
   (c-set-offset 'arglist-intro '+)	; aligns args split across lines
   (ggtags-mode)
 )
@@ -177,7 +195,15 @@ If the new path's directories does not exist, create them."
 (add-hook 'c-mode-common-hook 'common-hooks)
 (add-hook 'c-mode-common-hook 'c-hooks)
 
-;; Erlang
+;; Python -----------------------------------------------------------------------
+(setq python-shell-interpreter "python3.4")
+(defun python-hooks()
+  (local-set-key (kbd "M-e") 'python-shell-send-buffer))
+  
+(add-hook 'python-mode-hook 'common-hooks)
+(add-hook 'python-mode-hook 'python-hooks)
+
+;; Erlang ----------------------------------------------------------------------
 (add-hook 'erlang-mode-hook 'common-hooks)
 (add-hook 'erlang-shell-mode-hook 'common-hooks)
 
@@ -209,4 +235,3 @@ If the new path's directories does not exist, create them."
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
-
