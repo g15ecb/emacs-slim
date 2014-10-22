@@ -166,6 +166,8 @@ If the new path's directories does not exist, create them."
   (interactive nil)
   (ocp-indent-region (point-min) (point-max)))
 
+(require 'merlin)
+
 (defun ocaml-hooks()
   (local-set-key (kbd "M-e") 'tuareg-eval-buffer)
   (local-set-key (kbd "M-/") 'utop-edit-complete)
@@ -231,7 +233,7 @@ If the new path's directories does not exist, create them."
 ;; -----------------------------------------------------------------------------
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
-(set-face-attribute 'default nil :height 200)
+(set-face-attribute 'default nil :height 160)
 (global-unset-key (kbd "M-3"))
 (global-set-key (kbd "M-3") '(lambda() (interactive) (insert-string "#")))
 ;; -----------------------------------------------------------------------------
