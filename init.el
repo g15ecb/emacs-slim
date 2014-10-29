@@ -190,6 +190,9 @@ If the new path's directories does not exist, create them."
 (add-hook 'go-mode-hook 'common-hooks)
 (add-hook 'go-mode-hook 'go-hooks)
 
+;; Java ------------------------------------------------------------------------
+(add-hook 'java-mode-hook 'common-hooks)
+
 ;; C ---------------------------------------------------------------------------
 (setq c-default-style "linux" c-basic-offset 4)
 
