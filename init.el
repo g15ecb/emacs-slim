@@ -20,6 +20,7 @@
 		    makefile-mode 
 		    ocaml-mode 
 		    python-mode 
+		    go-autocomplete
 		    go-mode
 		    tuareg-mode)))
 
@@ -183,7 +184,13 @@ If the new path's directories does not exist, create them."
  (rainbow-delimiters-mode))
 
 ;; Go --------------------------------------------------------------------------
+(defun go-hooks()
+  (add-hook 'before-save-hook #'gofmt-before-save))
+
+(require 'go-autocomplete)
+(require 'auto-complete-config)
 (add-hook 'go-mode-hook 'common-hooks)
+(add-hook 'go-mode-hook 'go-hooks)
 
 ;; C ---------------------------------------------------------------------------
 (setq c-default-style "linux" c-basic-offset 4)
