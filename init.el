@@ -16,12 +16,11 @@
 		    c-mode 
 		    cc-mode 
 		    c++-mode 
+		    go-mode
 		    java-mode 
 		    makefile-mode 
 		    ocaml-mode 
 		    python-mode 
-		    go-autocomplete
-		    go-mode
 		    tuareg-mode)))
 
  '(custom-safe-themes (quote ("6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "9eb5269753c507a2b48d74228b32dcfbb3d1dbfd30c66c0efed8218d28b8f0dc" "e16a771a13a202ee6e276d06098bc77f008b73bbac4d526f160faa2d76c1dd0e" default))))
@@ -93,11 +92,11 @@ If the new path's directories does not exist, create them."
                       markdown-mode 
 		      ggtags
 		      erlang 
-		      projectile
+		      go-mode
+		      go-autocomplete
 		      soft-charcoal-theme
 		      ack-and-a-half 
                       auto-complete 
-		      rust-mode
 		      tuareg 
 		      evil 
 		      smart-mode-line)
@@ -186,7 +185,6 @@ If the new path's directories does not exist, create them."
 ;; Go --------------------------------------------------------------------------
 (defun go-hooks()
   (add-hook 'before-save-hook #'gofmt-before-save))
-
 (require 'go-autocomplete)
 (require 'auto-complete-config)
 (add-hook 'go-mode-hook 'common-hooks)
